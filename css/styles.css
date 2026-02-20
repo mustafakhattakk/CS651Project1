@@ -1,0 +1,315 @@
+:root{
+  --bg: #0b1220;
+  --panel: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.12);
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.70);
+  --brand: #4f46e5;       /* indigo */
+  --brand2: #06b6d4;      /* cyan */
+  --shadow: 0 18px 60px rgba(0,0,0,0.35);
+}
+
+*{ box-sizing:border-box; }
+html, body{ height:100%; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(1200px 700px at 20% 10%, rgba(79,70,229,0.35), transparent 60%),
+    radial-gradient(900px 600px at 80% 20%, rgba(6,182,212,0.25), transparent 60%),
+    var(--bg);
+}
+
+/* Better default media behavior */
+img{ max-width:100%; height:auto; display:block; }
+
+/* Links */
+a{ color: inherit; text-decoration: none; }
+a:hover{ color: var(--text); opacity:0.95; text-decoration:none; }
+
+/* Optional narrow container */
+.container-narrow{ max-width: 1100px; margin: 0 auto; }
+
+/* =========================
+   Navbar (Bootstrap tweaks)
+========================= */
+.navbar{
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,16,28,0.65) !important; /* fixes random bg */
+}
+.navbar-brand{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-weight:700;
+  letter-spacing:0.2px;
+}
+.brand-mark{
+  width:28px; height:28px;
+  border-radius:8px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  box-shadow: 0 10px 30px rgba(79,70,229,0.25);
+}
+.brand-mark img{ width:18px; height:18px; }
+
+/* =========================
+   Hero
+========================= */
+.hero{
+  padding: 80px 0 50px;
+}
+.hero-card{
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+.hero-inner{
+  padding: 44px 38px;
+}
+.hero h1{
+  font-size: clamp(2rem, 3vw, 3.1rem);
+  line-height:1.05;
+  margin: 0 0 14px;
+}
+.hero p{
+  color: var(--muted);
+  margin:0 0 22px;
+  font-size: 1.06rem;
+}
+.hero .cta{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.btn-brand{
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  border: none;
+  color:white !important;
+  box-shadow: 0 12px 28px rgba(79,70,229,0.25);
+}
+.btn-brand:hover{ filter: brightness(1.05); }
+
+.hero-image{
+  height: 100%;
+  min-height: 320px;
+  background: url("../Images/hero.jpg") center/cover no-repeat;
+}
+
+/* =========================
+   Sections
+========================= */
+.section{
+  padding: 26px 0 70px;
+}
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:14px;
+  margin-bottom: 18px;
+}
+.section-title h2{
+  font-size: 1.55rem;
+  margin:0;
+}
+.section-title p{
+  margin:0;
+  color: var(--muted);
+}
+
+/* =========================
+   Glass Cards + Features
+========================= */
+.card-glass{
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 18px;
+  height: 100%;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+}
+.feature{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.feature img{
+  width:38px; height:38px;
+  padding:8px;
+  border-radius:12px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--border);
+}
+.feature h3{
+  margin:0 0 6px;
+  font-size: 1.05rem;
+}
+.feature p{
+  margin:0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+/* =========================
+   Preview image blocks
+========================= */
+.preview{
+  border-radius: 16px;
+  overflow:hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: rgba(255,255,255,0.03);
+}
+.preview img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Fixed-height previews (for Contact page & cards) */
+.preview-fixed{
+  height: 220px;              /* consistent */
+  overflow: hidden;
+  border-radius: 16px;
+}
+.preview-fixed img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* crops nicely */
+  display: block;
+}
+
+/* =========================
+   About layout (float requirement)
+========================= */
+.float-panel{
+  float:right;               /* requirement: float area */
+  width: 340px;
+  margin: 0 0 14px 18px;
+}
+@media (max-width: 992px){
+  .float-panel{ float:none; width:100%; margin: 0 0 14px 0; }
+}
+
+/* =========================
+   Contact page layout (FIX)
+========================= */
+.contact-hero{
+  border-radius: 18px;
+  overflow:hidden;
+  border: 1px solid var(--border);
+  background: var(--panel);
+}
+.contact-hero .left{
+  padding: 26px;
+}
+.contact-hero img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+/* This is the BIG fix: images side-by-side, not stacked randomly */
+.contact-image-row{
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  flex-wrap: wrap;            /* stacks cleanly only on small screens */
+  margin-top: 18px;
+}
+.contact-image-row .preview{
+  flex: 1 1 360px;            /* 2 columns when space allows */
+}
+.contact-image-row .preview .preview-fixed{
+  height: 220px;
+}
+
+/* =========================
+   Forms
+========================= */
+.form-control, .form-select{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.form-control:focus, .form-select:focus{
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(6,182,212,0.5);
+  box-shadow: none;
+  color: var(--text);
+}
+.form-control::placeholder{ color: rgba(255,255,255,0.55); }
+
+/* Utility dark inputs (signin) */
+.page-hero{
+  padding: 54px 0 24px;
+}
+.form-control-dark{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+}
+.form-control-dark::placeholder{
+  color: rgba(255,255,255,0.45);
+}
+.form-control-dark:focus{
+  background: rgba(255,255,255,0.09);
+  color:#fff;
+  border-color: rgba(255,255,255,0.3);
+  box-shadow: none;
+}
+
+/* =========================
+   Footer
+========================= */
+.footer{
+  padding: 20px 0 34px;
+  color: rgba(255,255,255,0.65);
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+/* =========================
+   Toast / Mini Toast
+========================= */
+#toast{
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  background: rgba(0,0,0,0.65);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  color: var(--text);
+  display:none;
+}
+
+.toast-wrap{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+}
+.mini-toast{
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all .18s ease;
+  background: rgba(20,20,25,0.92);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+.mini-toast.show{
+  opacity: 1;
+  transform: translateY(0);
+}

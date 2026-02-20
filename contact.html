@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — VisionForge AI</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+  <!-- NAV (MATCHES OTHER PAGES) -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container container-narrow py-2">
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-mark">
+          <img src="Images/icon-ai.png" alt="AI">
+        </span>
+        VisionForge AI
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO (CONSISTENT “BANNER”) -->
+  <header class="page-hero">
+    <div class="container container-narrow">
+      <div class="hero-card">
+        <div class="hero-inner">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <h1 class="mb-2">Contact VisionForge AI</h1>
+              <p class="mb-0 text-white-50">
+                Tell us what you’re building — we’ll respond with a clear plan for Computer Vision + ML integration.
+                (Great foundation for Project 2: Vision API + Gemini + cloud database.)
+              </p>
+
+              <div class="mt-3 d-flex gap-2 flex-wrap">
+                <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">Fast response</span>
+                <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">API-first</span>
+                <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">Cloud-ready</span>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <div class="preview preview-fixed">
+                <img src="Images/contact-illustration.png" alt="Contact illustration">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <section class="section pt-3">
+    <div class="container container-narrow">
+      <div class="row g-4">
+
+        <!-- FORM -->
+        <div class="col-lg-7">
+          <div class="card-glass">
+            <h2 class="h4 mb-3">Send a message</h2>
+
+            <form id="contactForm" action="#" method="post">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label text-white-50 mb-1">Full Name</label>
+                  <input class="form-control" type="text" name="name" placeholder="Your name" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label text-white-50 mb-1">Email</label>
+                  <input class="form-control" type="email" name="email" placeholder="you@email.com" required>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label text-white-50 mb-1">Subject</label>
+                  <input class="form-control" type="text" name="subject" placeholder="What do you need help with?" required>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label text-white-50 mb-1">Message</label>
+                  <textarea class="form-control" name="message" rows="6" placeholder="Describe your idea / requirements..." required></textarea>
+                </div>
+
+                <div class="col-12 d-flex gap-2">
+                  <button class="btn btn-brand px-4" type="submit">Send Message</button>
+                  <button class="btn btn-outline-light px-4" type="reset">Clear</button>
+                </div>
+              </div>
+            </form>
+
+            <div class="small text-white-50 mt-3">
+              Tip: For Project 1, form submission can be “static” — you’re showing UI + JavaScript interactions.
+            </div>
+          </div>
+        </div>
+
+        <!-- INFO -->
+        <div class="col-lg-5">
+          <div class="card-glass h-100 d-flex flex-column">
+            <h2 class="h4 mb-3">Reach us</h2>
+
+            <div class="mb-3">
+              <div class="text-white-50">Email</div>
+              <div class="fw-semibold">hello@visionforge.ai</div>
+            </div>
+
+            <div class="mb-3">
+              <div class="text-white-50">Phone</div>
+              <div class="fw-semibold">+1 (510) 000-0000</div>
+            </div>
+
+            <div class="mb-4">
+              <div class="text-white-50">Office</div>
+              <div class="fw-semibold">Hayward, CA (CSU East Bay Area)</div>
+              <div class="text-white-50">Mon–Fri • 9am–5pm</div>
+            </div>
+
+            <div class="preview preview-fixed mt-auto">
+              <img src="Images/office.jpg" alt="Office">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- IMAGE ROW (USES YOUR CSS: contact-image-row) -->
+      <div class="contact-image-row mt-4">
+        <div class="preview">
+          <div class="preview-fixed">
+            <img src="Images/map.jpg" alt="Map location">
+          </div>
+        </div>
+        <div class="preview">
+          <div class="preview-fixed">
+            <img src="Images/dashboard.jpg" alt="Analytics dashboard">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <div>© <span id="year"></span> VisionForge AI</div>
+      <div class="small text-white-50">Innovating with AI & Computer Vision</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
