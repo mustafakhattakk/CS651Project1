@@ -25,7 +25,6 @@ document.addEventListener("click", (e)=>{
 });
 
 // Contact form + small interactions
-
 document.addEventListener("DOMContentLoaded", () => {
   // CONTACT FORM (fake submit for Project 1)
   const form = document.getElementById("contactForm");
@@ -41,37 +40,23 @@ document.addEventListener("DOMContentLoaded", () => {
       const missing = requiredIds.some((id) => !document.getElementById(id).value.trim());
 
       if (missing) {
-        status.textContent = "Please fill out all fields.";
-        status.style.color = "#ffb3b3";
+        if (status) {
+          status.textContent = "Please fill out all fields.";
+          status.style.color = "#ffb3b3";
+        }
         return;
       }
 
-      status.textContent = "Message sent (demo). We’ll get back to you soon.";
-      status.style.color = "#b7ffcf";
+      if (status) {
+        status.textContent = "Message sent (demo). We’ll get back to you soon.";
+        status.style.color = "#b7ffcf";
+      }
       form.reset();
     });
 
     clearBtn?.addEventListener("click", () => {
       form.reset();
-      status.textContent = "";
-    });
-  }
-
-  // COPY EMAIL BUTTON
-  const copyBtn = document.getElementById("copyEmailBtn");
-  const emailEl = document.getElementById("companyEmail");
-  const toast = document.getElementById("miniToast");
-
-  if (copyBtn && emailEl && toast) {
-    copyBtn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(emailEl.textContent.trim());
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 1200);
-      } catch (err) {
-        // fallback
-        alert("Copy failed. Email: " + emailEl.textContent.trim());
-      }
+      if (status) status.textContent = "";
     });
   }
 });
