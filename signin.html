@@ -14,7 +14,7 @@
 
 <body>
 
-  <!-- NAV (same as other pages) -->
+  <!-- NAV -->
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container container-narrow py-2">
       <a class="navbar-brand" href="index.html">
@@ -24,7 +24,15 @@
         VisionForge AI
       </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navMain"
+        aria-controls="navMain"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -33,13 +41,17 @@
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a></li>
+
+          <!-- Mark Sign In active -->
+          <li class="nav-item">
+            <a class="btn btn-sm btn-brand ms-lg-2 active" aria-current="page" href="signin.html">Sign In</a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Minimal HTML (React will render everything inside) -->
+  <!-- Minimal HTML (React renders into #root) -->
   <main class="section pt-4">
     <div class="container container-narrow">
       <div id="root"></div>
@@ -59,7 +71,7 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Your JS -->
+  <!-- Shared JS (toast, copy email, etc.) -->
   <script src="js/scripts.js"></script>
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -114,12 +126,12 @@
         // Required behavior:
         // 1) hide create form
         // 2) keep login form visible
-        // 3) fill login + password with new values
+        // 3) fill login + password with new values (state)
         setLogin(newLogin);
         setPassword(newPassword);
         setShowCreate(false);
 
-        // clear create fields (optional nice UX)
+        // Optional cleanup
         setNewName("");
         setNewEmail("");
         setNewLogin("");
@@ -130,20 +142,20 @@
 
       return (
         <>
-          {/* Page header card */}
+          {/* Header */}
           <div className="hero-card mb-4">
             <div className="hero-inner">
               <div className="row align-items-center g-4">
                 <div className="col-lg-8">
                   <h1 className="mb-2">Sign in to VisionForge AI</h1>
                   <p className="mb-0 text-white-50">
-                    This is a React demo page for Project 1. Create Account toggles a second form and uses state
-                    to fill login credentials automatically.
+                    React demo for Project 1: Create Account toggles a second form (right side),
+                    then fills the login credentials using React state.
                   </p>
                 </div>
                 <div className="col-lg-4">
                   <div className="preview preview-fixed">
-                    <img src="Images/login-bg.jpg" alt="Login background" />
+                    <img src="Images/login-bg.jpg" alt="Login background" loading="lazy" />
                   </div>
                 </div>
               </div>
@@ -152,7 +164,7 @@
 
           {/* Forms grid */}
           <div className="row g-4">
-            {/* LOGIN FORM */}
+            {/* LOGIN */}
             <div className={showCreate ? "col-lg-6" : "col-lg-7"}>
               <div className="card-glass p-4 h-100">
                 <h2 className="h4 mb-3">Sign In</h2>
@@ -165,6 +177,7 @@
                       placeholder="your_login"
                       value={login}
                       onChange={(e) => setLogin(e.target.value)}
+                      autoComplete="username"
                     />
                   </div>
 
@@ -176,19 +189,22 @@
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      autoComplete="current-password"
                     />
                   </div>
 
-                  {/* small “strength” UI (nice extra polish, still simple) */}
                   <div className="small text-white-50 mb-3">
                     Password strength:{" "}
                     <span className="text-white">
-                      {["Very weak","Weak","OK","Good","Strong"][strength]}
+                      {["Very weak", "Weak", "OK", "Good", "Strong"][strength]}
                     </span>
                   </div>
 
                   <div className="d-flex gap-2 flex-wrap">
-                    <button className="btn btn-brand px-4" type="submit">Sign In (Demo)</button>
+                    <button className="btn btn-brand px-4" type="submit">
+                      Sign In (Demo)
+                    </button>
+
                     <button
                       className="btn btn-outline-light px-4"
                       type="button"
@@ -213,7 +229,7 @@
               </div>
             </div>
 
-            {/* CREATE ACCOUNT FORM (RIGHT SIDE) */}
+            {/* CREATE ACCOUNT (RIGHT) */}
             {showCreate && (
               <div className="col-lg-6">
                 <div className="card-glass p-4 h-100">
@@ -228,6 +244,7 @@
                           placeholder="Your name"
                           value={newName}
                           onChange={(e) => setNewName(e.target.value)}
+                          autoComplete="name"
                         />
                       </div>
 
@@ -239,6 +256,7 @@
                           placeholder="you@email.com"
                           value={newEmail}
                           onChange={(e) => setNewEmail(e.target.value)}
+                          autoComplete="email"
                         />
                       </div>
 
