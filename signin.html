@@ -42,7 +42,6 @@
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 
-          <!-- Mark Sign In active -->
           <li class="nav-item">
             <a class="btn btn-sm btn-brand ms-lg-2 active" aria-current="page" href="signin.html">Sign In</a>
           </li>
@@ -62,7 +61,7 @@
   <footer class="footer">
     <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
       <div>© <span id="year"></span> VisionForge AI</div>
-      <div class="small text-white-50">Secure demo login • React state • UI behavior</div>
+      <div class="small text-white-50">Demo auth (localStorage) • React state • UI behavior</div>
     </div>
   </footer>
 
@@ -82,9 +81,42 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- React App -->
   <script type="text/babel">
     const { useMemo, useState } = React;
+
+    // ---- Demo persistence keys ----
+    const ACCOUNTS_KEY = "vf_accounts_v1";   // stores { [login]: { name, email, password } }
+    const SESSION_KEY  = "vf_session_v1";    // stores { login }
+
+    function readAccounts() {
+      try {
+        const raw = localStorage.getItem(ACCOUNTS_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch {
+        return {};
+      }
+    }
+
+    function writeAccounts(obj) {
+      localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(obj));
+    }
+
+    function readSession() {
+      try {
+        const raw = localStorage.getItem(SESSION_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeSession(sessionObj) {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(sessionObj));
+    }
+
+    function clearSession() {
+      localStorage.removeItem(SESSION_KEY);
+    }
 
     function SignInPage() {
       // Login form state
@@ -98,6 +130,12 @@
       const [newLogin, setNewLogin] = useState("");
       const [newPassword, setNewPassword] = useState("");
 
+      // Logged in user (demo session)
+      const [sessionLogin, setSessionLogin] = useState(() => {
+        const s = readSession();
+        return s?.login || "";
+      });
+
       const strength = useMemo(() => {
         let score = 0;
         if (password.length >= 8) score++;
@@ -109,29 +147,79 @@
 
       function handleLoginSubmit(e) {
         e.preventDefault();
-        if (!login || !password) {
+
+        const l = login.trim();
+        const p = password;
+
+        if (!l || !p) {
           window.vfToast?.("Please enter login + password.");
           return;
         }
-        window.vfToast?.(`Signed in (demo) as ${login}`);
+
+        const accounts = readAccounts();
+        const record = accounts[l];
+
+        if (!record) {
+          window.vfToast?.("No account found for that login. Create an account first.");
+          return;
+        }
+
+        if (record.password !== p) {
+          window.vfToast?.("Incorrect password. Please try again.");
+          return;
+        }
+
+        // success
+        setSessionLogin(l);
+        writeSession({ login: l });
+        window.vfToast?.(`Signed in (demo) as ${l}`);
+      }
+
+      function handleLogout() {
+        setSessionLogin("");
+        clearSession();
+        window.vfToast?.("Signed out (demo).");
       }
 
       function handleCreateSubmit(e) {
         e.preventDefault();
-        if (!newName || !newEmail || !newLogin || !newPassword) {
+
+        const name = newName.trim();
+        const email = newEmail.trim();
+        const l = newLogin.trim();
+        const p = newPassword;
+
+        if (!name || !email || !l || !p) {
           window.vfToast?.("Fill all Create Account fields.");
           return;
         }
+
+        // Basic sanity checks (demo)
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          window.vfToast?.("Please enter a valid email.");
+          return;
+        }
+
+        const accounts = readAccounts();
+
+        if (accounts[l]) {
+          window.vfToast?.("That login already exists. Choose another.");
+          return;
+        }
+
+        // Store demo account in localStorage
+        accounts[l] = { name, email, password: p };
+        writeAccounts(accounts);
 
         // Required behavior:
         // 1) hide create form
         // 2) keep login form visible
         // 3) fill login + password with new values (state)
-        setLogin(newLogin);
-        setPassword(newPassword);
+        setLogin(l);
+        setPassword(p);
         setShowCreate(false);
 
-        // Optional cleanup
+        // clear create fields (nice UX)
         setNewName("");
         setNewEmail("");
         setNewLogin("");
@@ -139,6 +227,23 @@
 
         window.vfToast?.("Account created (demo). Login fields filled.");
       }
+
+      function handleResetDemo() {
+        localStorage.removeItem(ACCOUNTS_KEY);
+        clearSession();
+        setSessionLogin("");
+        setLogin("");
+        setPassword("");
+        setShowCreate(false);
+        setNewName("");
+        setNewEmail("");
+        setNewLogin("");
+        setNewPassword("");
+        window.vfToast?.("Demo data cleared.");
+      }
+
+      const noteText =
+        "Note: This is a static-site demo. Accounts are stored in your browser (localStorage) for class demonstration only — not secure for production.";
 
       return (
         <>
@@ -150,7 +255,7 @@
                   <h1 className="mb-2">Sign in to VisionForge AI</h1>
                   <p className="mb-0 text-white-50">
                     React demo for Project 1: Create Account toggles a second form (right side),
-                    then fills the login credentials using React state.
+                    fills login credentials using React state, and Sign In validates against demo-stored accounts.
                   </p>
                 </div>
                 <div className="col-lg-4">
@@ -167,9 +272,26 @@
             {/* LOGIN */}
             <div className={showCreate ? "col-lg-6" : "col-lg-7"}>
               <div className="card-glass p-4 h-100">
-                <h2 className="h4 mb-3">Sign In</h2>
+                <div className="d-flex justify-content-between align-items-start gap-3">
+                  <div>
+                    <h2 className="h4 mb-1">Sign In</h2>
+                    <div className="small text-white-50">
+                      {sessionLogin ? (
+                        <>Signed in as <span className="text-white">{sessionLogin}</span></>
+                      ) : (
+                        <>Not signed in</>
+                      )}
+                    </div>
+                  </div>
 
-                <form onSubmit={handleLoginSubmit}>
+                  {sessionLogin && (
+                    <button className="btn btn-outline-light btn-sm" type="button" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  )}
+                </div>
+
+                <form className="mt-3" onSubmit={handleLoginSubmit}>
                   <div className="mb-3">
                     <label className="form-label text-white-50">Login</label>
                     <input
@@ -178,6 +300,7 @@
                       value={login}
                       onChange={(e) => setLogin(e.target.value)}
                       autoComplete="username"
+                      disabled={!!sessionLogin}
                     />
                   </div>
 
@@ -190,6 +313,7 @@
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       autoComplete="current-password"
+                      disabled={!!sessionLogin}
                     />
                   </div>
 
@@ -201,7 +325,7 @@
                   </div>
 
                   <div className="d-flex gap-2 flex-wrap">
-                    <button className="btn btn-brand px-4" type="submit">
+                    <button className="btn btn-brand px-4" type="submit" disabled={!!sessionLogin}>
                       Sign In (Demo)
                     </button>
 
@@ -209,6 +333,7 @@
                       className="btn btn-outline-light px-4"
                       type="button"
                       onClick={() => setShowCreate((v) => !v)}
+                      disabled={!!sessionLogin}
                     >
                       {showCreate ? "Hide Create Account" : "Create Account"}
                     </button>
@@ -220,10 +345,22 @@
                     >
                       Copy Email
                     </button>
+
+                    <button
+                      className="btn btn-outline-light px-4"
+                      type="button"
+                      onClick={handleResetDemo}
+                    >
+                      Reset Demo Data
+                    </button>
                   </div>
 
                   <div className="mt-3 small text-white-50">
                     Demo contact: <span className="text-white">hello@visionforge.ai</span>
+                  </div>
+
+                  <div className="mt-3 small text-white-50">
+                    {noteText}
                   </div>
                 </form>
               </div>
@@ -299,6 +436,7 @@
 
                       <div className="small text-white-50 mt-2">
                         When you create, this form disappears and your login fields fill automatically.
+                        Accounts are stored in browser localStorage for demo purposes.
                       </div>
                     </div>
                   </form>
