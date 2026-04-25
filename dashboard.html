@@ -168,6 +168,15 @@
     }
     .assistant-hidden-input { display: none; }
     .assistant-mobile-links { display: none; }
+    .user-badge {
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
     @media (max-width: 991px) {
       .assistant-main { padding: 24px; }
       .assistant-feed { border-left: none; border-top: 1px solid rgba(255,255,255,0.14); }
@@ -196,7 +205,7 @@
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
         <li class="nav-item"><a class="nav-link active" href="dashboard.html">Assistant</a></li>
         <li class="nav-item"><a class="nav-link" href="logs.html">Logs</a></li>
-        <li class="nav-item"><a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a></li>
+        <li class="nav-item" id="authNav"></li>
       </ul>
     </div>
   </div>
@@ -225,6 +234,59 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  const SESSION_KEY = "vf_session_token";
+  const USER_KEY = "vf_current_user";
+
+  function readStoredUser() {
+    try {
+      const raw = localStorage.getItem(USER_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function readSessionToken() {
+    return localStorage.getItem(SESSION_KEY) || "";
+  }
+
+  function renderAuthNav() {
+    const authNav = document.getElementById("authNav");
+    const user = readStoredUser();
+
+    if (user) {
+      authNav.innerHTML = `
+        <div class="d-flex align-items-center gap-2 ms-lg-2">
+          <span class="user-badge">Signed in: ${user.name}</span>
+          <button class="btn btn-sm btn-outline-light" type="button" onclick="signOutUser()">Sign Out</button>
+        </div>
+      `;
+    } else {
+      authNav.innerHTML = `<a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a>`;
+    }
+  }
+
+  async function signOutUser() {
+    const token = readSessionToken();
+
+    try {
+      if (token) {
+        await fetch("/api/auth/logout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionToken: token })
+        });
+      }
+    } catch {}
+
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(USER_KEY);
+    window.vfToast?.("Signed out.");
+    renderAuthNav();
+  }
+
+  renderAuthNav();
 </script>
 
 <script type="text/babel">
@@ -243,10 +305,12 @@
     const [isListening, setIsListening] = useState(false);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
 
+    const currentUser = readStoredUser();
+
     const recentActivity = [
-      "Backend connection is active.",
-      "Analysis results are saved to server logs.",
-      "Firestore and Gemini integration comes next."
+      currentUser ? `Signed in as ${currentUser.name}.` : "Guest mode is active.",
+      "Analysis results are saved to your account when signed in.",
+      "Gemini and Datastore are connected."
     ];
 
     function handleImageSelect(event) {
@@ -321,6 +385,11 @@
           voiceQuestion.trim() || "Describe the scene for safe navigation."
         );
 
+        const sessionToken = readSessionToken();
+        if (sessionToken) {
+          formData.append("sessionToken", sessionToken);
+        }
+
         const response = await fetch("/api/analyze", {
           method: "POST",
           body: formData
@@ -335,7 +404,7 @@
         const description = data.result.description;
 
         setResultText(description);
-        setStatus("Backend analysis complete. Audio description is playing.");
+        setStatus("Analysis complete. Audio description is playing.");
         window.vfToast?.("Analysis saved to logs.");
         speakText(description);
       } catch (error) {
@@ -392,6 +461,11 @@
                 <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>Voice-first</span>
                 <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>Accessibility</span>
                 <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>Backend Connected</span>
+                {currentUser && (
+                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                    User: {currentUser.login}
+                  </span>
+                )}
               </div>
 
               <h1 className="assistant-title">Vision Companion - Your Navigator</h1>
