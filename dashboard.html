@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vision Companion - VisionForge AI</title>
+  <title>Assistant - VisionForge AI</title>
 
   <!-- FAVICON -->
   <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
@@ -16,248 +16,309 @@
   <link rel="stylesheet" href="css/styles.css" />
 
   <style>
-    body {
-      background: #eef5fb;
-      color: #102033;
+    .assistant-hero {
+      padding: 54px 0 34px;
     }
 
-    .vf-app-shell {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #edf6ff 0%, #dcecf8 50%, #f8fbff 100%);
+    .assistant-shell {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.085), rgba(255,255,255,0.035));
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
-    .vf-topbar {
-      background: rgba(255, 255, 255, 0.88);
-      border-bottom: 1px solid rgba(30, 70, 110, 0.12);
-      backdrop-filter: blur(12px);
+    .assistant-main {
+      padding: 36px;
     }
 
-    .vf-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .assistant-title {
+      font-size: clamp(2.2rem, 4.4vw, 4.4rem);
+      line-height: 1.02;
       font-weight: 800;
-      color: #102033;
-      text-decoration: none;
-      font-size: 1.2rem;
+      letter-spacing: -0.04em;
+      margin: 0 0 14px;
+      color: var(--text);
     }
 
-    .vf-brand img {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
+    .assistant-subtitle {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 760px;
+      margin-bottom: 24px;
     }
 
-    .vf-nav-link {
-      color: #28445f;
-      font-weight: 700;
-      text-decoration: none;
-      padding: 12px 18px;
-      border-bottom: 4px solid transparent;
-    }
-
-    .vf-nav-link.active {
-      color: #102033;
-      border-bottom-color: #416f97;
-    }
-
-    .vf-sidebar {
-      background: rgba(255, 255, 255, 0.62);
-      border-right: 1px solid rgba(30, 70, 110, 0.12);
-      min-height: calc(100vh - 67px);
-      padding: 24px 18px;
-    }
-
-    .vf-sidebar-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      margin-bottom: 16px;
-      color: #102033;
-    }
-
-    .vf-feed-item {
-      display: flex;
-      gap: 12px;
-      color: #263f56;
-      font-size: 0.95rem;
-      margin-bottom: 18px;
-      line-height: 1.35;
-    }
-
-    .vf-feed-dot {
-      width: 13px;
-      height: 13px;
-      border-radius: 999px;
-      background: #b8cfe2;
-      margin-top: 4px;
-      flex: 0 0 auto;
-    }
-
-    .vf-main {
-      padding: 44px 42px;
-    }
-
-    .vf-title {
-      font-size: clamp(2.8rem, 6vw, 5.3rem);
-      line-height: 0.98;
-      font-weight: 900;
-      color: #050a12;
-      letter-spacing: -0.06em;
-      margin-bottom: 34px;
-    }
-
-    .vf-action-card {
-      max-width: 920px;
-    }
-
-    .vf-big-button {
-      width: 100%;
-      border: 0;
-      border-radius: 12px;
-      background: #416f97;
-      color: #ffffff;
-      font-size: clamp(1.4rem, 3vw, 2.5rem);
-      font-weight: 800;
-      padding: 22px 24px;
-      box-shadow: 0 14px 35px rgba(24, 60, 94, 0.22);
-      transition: transform 0.15s ease, background 0.15s ease;
-    }
-
-    .vf-big-button:hover {
-      background: #365f83;
-      transform: translateY(-1px);
-    }
-
-    .vf-card {
-      background: rgba(255, 255, 255, 0.76);
-      border: 1px solid rgba(38, 75, 110, 0.18);
+    .assistant-panel {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
       border-radius: 16px;
-      box-shadow: 0 16px 40px rgba(45, 80, 115, 0.12);
+      padding: 22px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
     }
 
-    .vf-result-box {
-      min-height: 250px;
+    .assistant-primary-action {
       width: 100%;
-      border: 1px solid rgba(48, 85, 120, 0.25);
-      border-radius: 12px;
-      background: #ffffff;
-      color: #111827;
-      padding: 24px;
-      font-size: clamp(1.15rem, 2vw, 1.75rem);
-      line-height: 1.45;
-      resize: vertical;
+      border: none;
+      border-radius: 16px;
+      padding: 22px;
+      font-size: clamp(1.25rem, 2.4vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 18px 42px rgba(79,70,229,0.28);
+      transition: transform .16s ease, filter .16s ease;
     }
 
-    .vf-control-label {
-      font-weight: 800;
-      color: #102033;
+    .assistant-primary-action:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    .assistant-label {
+      color: var(--text);
+      font-weight: 700;
       margin-bottom: 8px;
     }
 
-    .vf-small-help {
-      color: #57738d;
+    .assistant-help {
+      color: var(--muted);
       font-size: 0.95rem;
     }
 
-    .vf-secondary-button {
-      border: 0;
+    .assistant-input,
+    .assistant-result {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 14px;
+    }
+
+    .assistant-input {
+      min-height: 54px;
+      font-size: 1.05rem;
+    }
+
+    .assistant-input::placeholder,
+    .assistant-result::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .assistant-input:focus,
+    .assistant-result:focus {
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+      border-color: rgba(6,182,212,0.55);
+      box-shadow: none;
+    }
+
+    .assistant-result {
+      min-height: 270px;
+      width: 100%;
+      padding: 20px;
+      resize: vertical;
+      font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+      line-height: 1.55;
+    }
+
+    .assistant-secondary-btn {
+      border: none;
       border-radius: 12px;
-      background: #416f97;
-      color: white;
+      padding: 13px 18px;
       font-weight: 800;
-      padding: 14px 22px;
-      box-shadow: 0 10px 28px rgba(24, 60, 94, 0.2);
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 12px 28px rgba(79,70,229,0.22);
     }
 
-    .vf-secondary-button:hover {
-      background: #365f83;
-      color: white;
+    .assistant-secondary-btn:hover {
+      color: #fff;
+      filter: brightness(1.05);
     }
 
-    .vf-outline-button {
-      border: 2px solid #416f97;
+    .assistant-outline-btn {
+      border: 1px solid rgba(255,255,255,0.28);
       border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 800;
+      color: var(--text);
       background: transparent;
-      color: #294d70;
-      font-weight: 800;
-      padding: 12px 20px;
     }
 
-    .vf-outline-button:hover {
-      background: #416f97;
-      color: white;
+    .assistant-outline-btn:hover {
+      color: #fff;
+      border-color: rgba(6,182,212,0.65);
+      background: rgba(255,255,255,0.08);
     }
 
-    .vf-wave {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      height: 120px;
-    }
-
-    .vf-wave span {
-      width: 8px;
-      border-radius: 999px;
-      background: #416f97;
-      display: inline-block;
-      opacity: 0.8;
-    }
-
-    .vf-wave span:nth-child(1) { height: 18px; }
-    .vf-wave span:nth-child(2) { height: 34px; }
-    .vf-wave span:nth-child(3) { height: 58px; }
-    .vf-wave span:nth-child(4) { height: 82px; }
-    .vf-wave span:nth-child(5) { height: 54px; }
-    .vf-wave span:nth-child(6) { height: 36px; }
-    .vf-wave span:nth-child(7) { height: 20px; }
-
-    .vf-status {
-      border-radius: 12px;
-      padding: 14px 16px;
-      font-weight: 700;
-      background: rgba(65, 111, 151, 0.12);
-      color: #24435e;
-    }
-
-    .vf-preview-img {
+    .assistant-preview-img {
       width: 100%;
       max-height: 240px;
       object-fit: cover;
       border-radius: 14px;
-      border: 1px solid rgba(48, 85, 120, 0.2);
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
     }
 
-    .vf-hidden-input {
+    .assistant-wave {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 125px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .assistant-wave span {
+      width: 8px;
+      border-radius: 999px;
+      display: inline-block;
+      background: linear-gradient(180deg, var(--brand2), var(--brand));
+      opacity: 0.9;
+    }
+
+    .assistant-wave span:nth-child(1) { height: 18px; }
+    .assistant-wave span:nth-child(2) { height: 34px; }
+    .assistant-wave span:nth-child(3) { height: 58px; }
+    .assistant-wave span:nth-child(4) { height: 86px; }
+    .assistant-wave span:nth-child(5) { height: 58px; }
+    .assistant-wave span:nth-child(6) { height: 34px; }
+    .assistant-wave span:nth-child(7) { height: 18px; }
+
+    .assistant-status {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-weight: 700;
+    }
+
+    .assistant-feed {
+      border-left: 1px solid rgba(255,255,255,0.14);
+      padding: 28px 22px;
+      background: rgba(255,255,255,0.035);
+      height: 100%;
+    }
+
+    .assistant-feed-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+    }
+
+    .assistant-feed-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      line-height: 1.35;
+      font-size: 0.95rem;
+    }
+
+    .assistant-feed-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      margin-top: 5px;
+      flex: 0 0 auto;
+    }
+
+    .assistant-hidden-input {
+      display: none;
+    }
+
+    .assistant-mobile-links {
       display: none;
     }
 
     @media (max-width: 991px) {
-      .vf-sidebar {
-        display: none;
+      .assistant-main {
+        padding: 24px;
       }
 
-      .vf-main {
-        padding: 28px 18px;
+      .assistant-feed {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.14);
       }
 
-      .vf-title {
-        margin-bottom: 24px;
+      .assistant-mobile-links {
+        display: flex;
       }
     }
   </style>
 </head>
 
 <body>
-  <div id="root"></div>
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container container-narrow py-2">
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-mark">
+          <img src="Images/favicon.ico" alt="AI">
+        </span>
+        VisionForge AI
+      </a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navMain"
+        aria-controls="navMain"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="dashboard.html">Assistant</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html">Logs</a></li>
+          <li class="nav-item"><a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="assistant-hero">
+    <div class="container container-narrow">
+      <div id="root"></div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <div>© <span id="year"></span> VisionForge AI</div>
+      <div class="small text-white-50">Accessibility Assistant • Gemini AI • Voice Output</div>
+    </div>
+  </footer>
+
+  <div id="toast"></div>
 
   <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Existing shared JS -->
+  <script src="js/scripts.js"></script>
 
   <!-- React CDN -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
   <script type="text/babel">
     const { useRef, useState } = React;
@@ -275,9 +336,9 @@
       const [isListening, setIsListening] = useState(false);
 
       const recentActivity = [
-        "A clear path is visible with no immediate obstacle.",
-        "Detected possible chair near the walking path.",
-        "Voice question received: describe the scene."
+        "Safety-first description mode is ready.",
+        "Voice question support is available in Chrome.",
+        "Results will later be saved to Firestore logs."
       ];
 
       function handleImageSelect(event) {
@@ -301,6 +362,7 @@
 
         if (!SpeechRecognition) {
           setStatus("Voice recognition is not supported in this browser. Please type your question instead.");
+          window.vfToast?.("Voice recognition is not supported in this browser.");
           return;
         }
 
@@ -318,10 +380,12 @@
           const transcript = event.results[0][0].transcript;
           setVoiceQuestion(transcript);
           setStatus("Voice question captured.");
+          window.vfToast?.("Voice question captured.");
         };
 
         recognition.onerror = function() {
           setStatus("Could not capture voice. Try again or type your question.");
+          window.vfToast?.("Voice capture failed.");
         };
 
         recognition.onend = function() {
@@ -332,16 +396,12 @@
       function analyzeScene() {
         if (!selectedImage && !voiceQuestion.trim()) {
           setStatus("Please upload an image or ask a question first.");
+          window.vfToast?.("Upload an image or ask a question first.");
           return;
         }
 
         setStatus("Analyzing scene...");
 
-        /*
-          This is a temporary frontend-only response.
-          In the next step, we will connect this button to the Express backend.
-          Backend route will call Gemini API and store the result in Firestore.
-        */
         const demoResponse =
           "Safety summary: The scene appears mostly clear. Move forward carefully. Important details: check for objects near your walking path, especially chairs, tables, doors, stairs, people, vehicles, or uneven surfaces. Navigation guidance: proceed slowly and listen for the audio description before moving.";
 
@@ -353,6 +413,7 @@
       function speakText(text) {
         if (!window.speechSynthesis) {
           setStatus("Text-to-speech is not supported in this browser.");
+          window.vfToast?.("Text-to-speech is not supported.");
           return;
         }
 
@@ -385,151 +446,158 @@
       }
 
       return (
-        <div className="vf-app-shell">
-          <header className="vf-topbar sticky-top">
-            <div className="container-fluid">
-              <div className="row align-items-center">
-                <div className="col-lg-2 col-12 px-4 py-3">
-                  <a className="vf-brand" href="index.html">
-                    <img src="Images/favicon.ico" alt="VisionForge logo" />
-                    <span>VisionForge AI</span>
-                  </a>
+        <div className="assistant-shell">
+          <div className="row g-0">
+            <div className="col-lg-9">
+              <div className="assistant-main">
+                <div className="d-flex flex-wrap gap-2 mb-3">
+                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                    Voice-first
+                  </span>
+                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                    Accessibility
+                  </span>
+                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                    Navigation Help
+                  </span>
                 </div>
 
-                <nav className="col-lg-10 col-12 d-flex gap-2 px-4">
-                  <a className="vf-nav-link active" href="dashboard.html">Main Dashboard</a>
-                  <a className="vf-nav-link" href="logs.html">View Logs</a>
-                  <a className="vf-nav-link" href="index.html">Home</a>
-                </nav>
+                <h1 className="assistant-title">Vision Companion - Your Navigator</h1>
+
+                <p className="assistant-subtitle">
+                  Upload an image or ask a voice question. VisionForge will focus on practical accessibility details:
+                  obstacles, people, paths, safety risks, and useful navigation context.
+                </p>
+
+                <input
+                  ref={fileInputRef}
+                  className="assistant-hidden-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageSelect}
+                />
+
+                <button className="assistant-primary-action mb-4" type="button" onClick={openImagePicker}>
+                  🎙️ Upload Image or Ask 📷
+                </button>
+
+                <div className="row g-4 align-items-stretch">
+                  <div className="col-xl-7">
+                    <div className="assistant-panel h-100">
+                      <div className="mb-3">
+                        <div className="assistant-label">Voice question</div>
+                        <input
+                          className="form-control assistant-input"
+                          value={voiceQuestion}
+                          onChange={(e) => setVoiceQuestion(e.target.value)}
+                          placeholder="Example: What is in front of me?"
+                        />
+                        <div className="assistant-help mt-2">
+                          You can type a question or use the microphone button.
+                        </div>
+                      </div>
+
+                      <div className="d-flex gap-2 flex-wrap mb-4">
+                        <button className="assistant-secondary-btn" type="button" onClick={startVoiceInput}>
+                          {isListening ? "Listening..." : "🎤 Record Voice Question"}
+                        </button>
+
+                        <button className="assistant-outline-btn" type="button" onClick={analyzeScene}>
+                          Analyze Scene
+                        </button>
+
+                        <button className="assistant-outline-btn" type="button" onClick={clearAll}>
+                          Clear
+                        </button>
+                      </div>
+
+                      {imagePreview && (
+                        <div className="mb-4">
+                          <div className="assistant-label">Selected image preview</div>
+                          <img className="assistant-preview-img" src={imagePreview} alt="Selected upload preview" />
+                        </div>
+                      )}
+
+                      <div className="assistant-label">Accessibility description</div>
+                      <textarea
+                        className="assistant-result"
+                        value={resultText}
+                        onChange={(e) => setResultText(e.target.value)}
+                        aria-label="Accessibility description result"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div className="col-xl-5">
+                    <div className="assistant-panel h-100 d-flex flex-column justify-content-center">
+                      <div className="assistant-wave" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+
+                      <button className="assistant-secondary-btn mb-3" type="button" onClick={() => speakText(resultText)}>
+                        ▶ Play Audio Description
+                      </button>
+
+                      <button className="assistant-outline-btn mb-4" type="button" onClick={stopSpeech}>
+                        Stop Audio
+                      </button>
+
+                      <div className="assistant-status">
+                        Status: {status}
+                      </div>
+
+                      <div className="assistant-help mt-3">
+                        Built for simple interaction: image, voice question, clear spoken guidance.
+                      </div>
+
+                      <div className="assistant-mobile-links gap-2 flex-wrap mt-4">
+                        <a className="btn btn-outline-light" href="logs.html">View Logs</a>
+                        <a className="btn btn-outline-light" href="index.html">Back Home</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
-          </header>
 
-          <div className="container-fluid">
-            <div className="row">
-              <aside className="col-lg-2 vf-sidebar">
-                <div className="vf-sidebar-title">Activity Feed</div>
+            <aside className="col-lg-3">
+              <div className="assistant-feed">
+                <div className="assistant-feed-title">Activity Feed</div>
 
                 {recentActivity.map((item, index) => (
-                  <div className="vf-feed-item" key={index}>
-                    <span className="vf-feed-dot"></span>
+                  <div className="assistant-feed-item" key={index}>
+                    <span className="assistant-feed-dot"></span>
                     <span>{item}</span>
                   </div>
                 ))}
 
-                <hr />
+                <hr style={{borderColor: "rgba(255,255,255,0.14)"}} />
 
-                <div className="vf-sidebar-title mt-4">Accessibility Focus</div>
+                <div className="assistant-feed-title mt-4">Main Focus</div>
 
-                <div className="vf-feed-item">
-                  <span className="vf-feed-dot"></span>
-                  <span>Safety-first image explanations</span>
+                <div className="assistant-feed-item">
+                  <span className="assistant-feed-dot"></span>
+                  <span>Describe obstacles, people, paths, signs, doors, stairs, and vehicles.</span>
                 </div>
 
-                <div className="vf-feed-item">
-                  <span className="vf-feed-dot"></span>
-                  <span>Voice input and spoken output</span>
+                <div className="assistant-feed-item">
+                  <span className="assistant-feed-dot"></span>
+                  <span>Return short, direct, spoken guidance first.</span>
                 </div>
-              </aside>
 
-              <main className="col-lg-10 vf-main">
-                <h1 className="vf-title">
-                  Vision Companion - Your Navigator
-                </h1>
-
-                <div className="vf-action-card">
-                  <input
-                    ref={fileInputRef}
-                    className="vf-hidden-input"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageSelect}
-                  />
-
-                  <button className="vf-big-button mb-4" type="button" onClick={openImagePicker}>
-                    🎙️ Upload Image or Ask 📷
-                  </button>
-
-                  <div className="row g-4 align-items-stretch">
-                    <div className="col-xl-7">
-                      <div className="vf-card p-4 h-100">
-                        <div className="mb-3">
-                          <div className="vf-control-label">Voice question</div>
-                          <input
-                            className="form-control form-control-lg"
-                            value={voiceQuestion}
-                            onChange={(e) => setVoiceQuestion(e.target.value)}
-                            placeholder="Example: What is in front of me?"
-                          />
-                          <div className="vf-small-help mt-2">
-                            You can type or use the microphone button.
-                          </div>
-                        </div>
-
-                        <div className="d-flex gap-2 flex-wrap mb-4">
-                          <button className="vf-secondary-button" type="button" onClick={startVoiceInput}>
-                            {isListening ? "Listening..." : "🎤 Record Voice Question"}
-                          </button>
-
-                          <button className="vf-outline-button" type="button" onClick={analyzeScene}>
-                            Analyze Scene
-                          </button>
-
-                          <button className="vf-outline-button" type="button" onClick={clearAll}>
-                            Clear
-                          </button>
-                        </div>
-
-                        {imagePreview && (
-                          <div className="mb-4">
-                            <div className="vf-control-label">Selected image preview</div>
-                            <img className="vf-preview-img" src={imagePreview} alt="Selected upload preview" />
-                          </div>
-                        )}
-
-                        <div className="vf-control-label">Accessibility description</div>
-                        <textarea
-                          className="vf-result-box"
-                          value={resultText}
-                          onChange={(e) => setResultText(e.target.value)}
-                          aria-label="Accessibility description result"
-                        ></textarea>
-                      </div>
-                    </div>
-
-                    <div className="col-xl-5">
-                      <div className="vf-card p-4 h-100 d-flex flex-column justify-content-center">
-                        <div className="vf-wave mb-4" aria-hidden="true">
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                        </div>
-
-                        <button className="vf-secondary-button mb-3" type="button" onClick={() => speakText(resultText)}>
-                          ▶ Play Audio Description
-                        </button>
-
-                        <button className="vf-outline-button mb-4" type="button" onClick={stopSpeech}>
-                          Stop Audio
-                        </button>
-
-                        <div className="vf-status">
-                          Status: {status}
-                        </div>
-
-                        <div className="vf-small-help mt-3">
-                          This dashboard is designed for simple interaction: upload an image, ask a question, and receive a spoken accessibility-focused explanation.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="mt-4">
+                  <a className="btn btn-outline-light w-100 mb-2" href="logs.html">View Logs</a>
+                  <a className="btn btn-outline-light w-100" href="index.html">Back Home</a>
                 </div>
-              </main>
-            </div>
+              </div>
+            </aside>
           </div>
         </div>
       );
