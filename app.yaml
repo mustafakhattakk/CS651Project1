@@ -1,0 +1,6 @@
+runtime: nodejs20
+
+entrypoint: npm start
+
+env_variables:
+  GEMINI_API_KEY: "AIzaSyA0tiRgEt85fkZBBTiytdIQpGc9ToOkbSI"
