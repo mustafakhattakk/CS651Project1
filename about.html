@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About - VisionForge AI</title>
 
-  <!-- FAVICON -->
   <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
   <link rel="shortcut icon" type="image/x-icon" href="Images/favicon.ico">
 
@@ -14,7 +13,6 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container container-narrow py-2">
     <a class="navbar-brand" href="index.html">
@@ -33,47 +31,45 @@
         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
         <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-		  <li class="nav-item"><a class="nav-link" href="dashboard.html">Assistant</a></li>
-		  <li class="nav-item"><a class="nav-link" href="logs.html">Logs</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Assistant</a></li>
+        <li class="nav-item"><a class="nav-link" href="logs.html">Logs</a></li>
         <li class="nav-item"><a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- PAGE HERO -->
 <header class="page-hero">
   <div class="container container-narrow">
     <div class="hero-card">
       <div class="hero-inner">
         <div class="row align-items-center g-4">
           <div class="col-lg-8">
-            <h1 class="mb-2">Building practical AI for image understanding.</h1>
+            <h1 class="mb-2">Built around a simple question: what is in front of me?</h1>
             <p class="mb-3">
-              VisionForge AI focuses on one clear goal: making images easier to understand.
-              Our platform generates accurate, readable captions from uploaded photos so teams
-              can organize, review, and search visual content more efficiently.
+              VisionForge AI started as an image understanding project, but the goal became more practical:
+              help visually impaired users get clear guidance from a photo and a voice question.
             </p>
 
             <div class="d-flex flex-wrap gap-2">
-              <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">Image Captioning</span>
-              <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">Computer Vision</span>
-              <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">Cloud Infrastructure</span>
-              <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">Scalable Architecture</span>
+              <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">Accessibility</span>
+              <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">Voice Guidance</span>
+              <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">Gemini AI</span>
+              <span class="badge rounded-pill text-bg-dark border" style="border-color: rgba(255,255,255,0.18)!important;">App Engine</span>
             </div>
 
             <div class="mt-4 d-flex gap-2 flex-wrap">
-              <a class="btn btn-brand" href="signin.html">Access the Platform</a>
-              <a class="btn btn-outline-light" href="contact.html">Contact Us</a>
+              <a class="btn btn-brand" href="dashboard.html">Try the Assistant</a>
+              <a class="btn btn-outline-light" href="logs.html">View Logs</a>
             </div>
           </div>
 
           <div class="col-lg-4">
             <div class="preview preview-fixed">
-              <img src="Images/dashboard2.jpg" alt="Platform preview">
+              <img src="Images/dashboard2.jpg" alt="Assistant preview">
             </div>
             <div class="small text-white-50 mt-2">
-              A preview of our caption generation interface.
+              A preview of the assistant interface and saved interaction flow.
             </div>
           </div>
         </div>
@@ -82,55 +78,53 @@
   </div>
 </header>
 
-<!-- ABOUT / STORY -->
 <section class="section pt-4">
   <div class="container container-narrow">
 
     <div class="section-title">
       <div>
-        <h2>Our Approach</h2>
-        <p>Clear workflow. Clean interface. Reliable output.</p>
+        <h2>Why we changed the idea</h2>
+        <p>Captioning alone was not enough. The output needed to be useful in real situations.</p>
       </div>
     </div>
 
-    <!-- FLOATING IMAGE -->
     <aside class="float-panel card-glass">
       <img src="Images/office.jpg" alt="Workspace" class="img-fluid rounded">
       <div class="mt-2 small text-white-50">
-        Designed for performance, simplicity, and deployment in the cloud.
+        The project combines a simple interface with a real cloud backend.
       </div>
     </aside>
 
     <p>
-      Images contain valuable information, but extracting meaning from them manually takes time.
-      VisionForge AI simplifies this process by converting visual content into concise,
-      human-readable captions using modern computer vision models.
+      A normal caption might say “a beach at sunset” or “a room with furniture.” That can be accurate,
+      but it is not always helpful for someone who needs to move safely. VisionForge AI focuses on the
+      details that affect navigation: obstacles, surface conditions, nearby people, doors, stairs, water,
+      vehicles, and the safest direction to move.
     </p>
 
     <p>
-      Instead of focusing on abstract AI research, we build applied systems that work in
-      real-world environments. The platform accepts an uploaded image, analyzes its content,
-      generates a caption, and stores the result for future retrieval.
+      The assistant lets a user upload an image and ask a question such as “Can I walk forward safely?”
+      or “What is in front of me?” The system sends the image and question to Gemini, returns a spoken
+      accessibility-focused response, and stores the interaction in Google Datastore.
     </p>
 
     <p class="mb-0">
-      The architecture is designed to evolve into a full web application where users can manage
-      uploads, store generated captions in a database, and retrieve previous results through a
-      searchable interface.
+      The project is designed as a working web system, not just a static demo. It includes a Node.js and
+      Express backend, cloud deployment on Google App Engine, Gemini image analysis, saved logs, and a
+      mobile-friendly assistant page for quick use.
     </p>
 
     <div class="clearfix"></div>
   </div>
 </section>
 
-<!-- WHAT WE BUILD -->
 <section class="section pt-0">
   <div class="container container-narrow">
 
     <div class="section-title">
       <div>
         <h2>Core Capabilities</h2>
-        <p>Focused features built around image caption generation.</p>
+        <p>The main features are focused on accessibility, safety, and saved results.</p>
       </div>
     </div>
 
@@ -138,10 +132,10 @@
       <div class="col-md-6 col-lg-4">
         <div class="card-glass h-100">
           <div class="feature">
-            <img src="Images/icon-vision.png" alt="Upload">
+            <img src="Images/icon-vision.png" alt="Image input">
             <div>
-              <h3>Image Processing</h3>
-              <p>Analyze uploaded images to identify visual elements such as objects and context.</p>
+              <h3>Image Input</h3>
+              <p>Users can upload a photo of their surroundings so the assistant can inspect the scene.</p>
             </div>
           </div>
         </div>
@@ -150,10 +144,10 @@
       <div class="col-md-6 col-lg-4">
         <div class="card-glass h-100">
           <div class="feature">
-            <img src="Images/icon-analytics.png" alt="Caption">
+            <img src="Images/icon-analytics.png" alt="Voice question">
             <div>
-              <h3>Caption Generation</h3>
-              <p>Produce clear, descriptive captions that summarize what is visible in each image.</p>
+              <h3>Voice Question</h3>
+              <p>The user can ask practical questions about movement, obstacles, or what is nearby.</p>
             </div>
           </div>
         </div>
@@ -162,10 +156,10 @@
       <div class="col-md-6 col-lg-4">
         <div class="card-glass h-100">
           <div class="feature">
-            <img src="Images/icon-cloud.png" alt="Storage">
+            <img src="Images/icon-ai.png" alt="AI guidance">
             <div>
-              <h3>Cloud Storage</h3>
-              <p>Store captions alongside image references for future review and search.</p>
+              <h3>Guidance Output</h3>
+              <p>The result is written and spoken back with safety details and next-step guidance.</p>
             </div>
           </div>
         </div>
@@ -173,23 +167,22 @@
     </div>
 
     <div class="mt-4 card-glass">
-      <h3 class="mb-2" style="font-size:1.1rem;">Platform Workflow</h3>
+      <h3 class="mb-2" style="font-size:1.1rem;">System Workflow</h3>
       <p class="mb-0 text-white-50">
-        Upload Image → Analyze Content → Generate Caption → Store Result → Retrieve When Needed
+        Upload Image → Ask Question → Gemini Analysis → Spoken Guidance → Save Log in Datastore → Review History
       </p>
     </div>
 
   </div>
 </section>
 
-<!-- TEAM -->
 <section class="section">
   <div class="container container-narrow">
 
     <div class="section-title">
       <div>
-        <h2>Founding Team</h2>
-        <p>Engineers focused on practical AI and scalable web systems.</p>
+        <h2>Project Team</h2>
+        <p>Built as a Web Systems project with a focus on practical AI and cloud deployment.</p>
       </div>
     </div>
 
@@ -198,9 +191,9 @@
       <div class="col-md-4">
         <div class="card-glass h-100 text-center p-4">
           <h4 class="mb-1">Mustafa Khattak</h4>
-          <p class="small text-white-50 mb-3">Co-Founder • Full-Stack Developer</p>
+          <p class="small text-white-50 mb-3">Full-Stack Development</p>
           <p class="mb-0 text-white-50">
-            Works on system architecture, frontend development, and cloud deployment strategies.
+            Worked on the interface, backend integration, Google Cloud setup, and deployment workflow.
           </p>
         </div>
       </div>
@@ -208,9 +201,9 @@
       <div class="col-md-4">
         <div class="card-glass h-100 text-center p-4">
           <h4 class="mb-1">Kokila Ganesan</h4>
-          <p class="small text-white-50 mb-3">Co-Founder • Machine Learning Engineer</p>
+          <p class="small text-white-50 mb-3">AI Feature Support</p>
           <p class="mb-0 text-white-50">
-            Focused on integrating vision models and improving caption accuracy and reliability.
+            Supported the accessibility use case, prompt direction, and response quality testing.
           </p>
         </div>
       </div>
@@ -218,9 +211,9 @@
       <div class="col-md-4">
         <div class="card-glass h-100 text-center p-4">
           <h4 class="mb-1">Xiaoqin Tang</h4>
-          <p class="small text-white-50 mb-3">Co-Founder • Cloud Engineer</p>
+          <p class="small text-white-50 mb-3">Cloud and Data Support</p>
           <p class="mb-0 text-white-50">
-            Designs infrastructure for secure storage, scalability, and performance optimization.
+            Supported cloud database planning, saved logs, and system documentation requirements.
           </p>
         </div>
       </div>
@@ -234,11 +227,10 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="container container-narrow d-flex flex-column flex-md-row gap-2 justify-content-between align-items-md-center">
     <div>© <span id="year"></span> VisionForge AI</div>
-    <div class="small text-white-50">Image Captioning • Computer Vision • Cloud</div>
+    <div class="small text-white-50">Accessibility • Gemini AI • Datastore • App Engine</div>
   </div>
 </footer>
 
