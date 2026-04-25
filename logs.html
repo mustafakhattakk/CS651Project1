@@ -5,625 +5,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Logs - VisionForge AI</title>
 
-  <!-- FAVICON -->
-  <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
-  <link rel="shortcut icon" type="image/x-icon" href="Images/favicon.ico">
-
-  <!-- Bootstrap -->
+  <link rel="icon" href="Images/favicon.ico">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Existing project CSS -->
-  <link rel="stylesheet" href="css/styles.css" />
-
   <style>
-    .logs-hero {
-      padding: 54px 0 34px;
+    body {
+      background: linear-gradient(135deg,#0f172a,#1e293b);
+      color: #fff;
+      font-family: system-ui;
     }
 
-    .logs-shell {
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.085), rgba(255,255,255,0.035));
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .logs-main {
-      padding: 32px;
-    }
-
-    .logs-title {
-      font-size: clamp(2rem, 4vw, 3.6rem);
-      line-height: 1.05;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      margin: 0 0 10px;
-      color: var(--text);
-    }
-
-    .logs-subtitle {
-      color: var(--muted);
-      font-size: 1.05rem;
-      max-width: 760px;
-      margin-bottom: 24px;
-    }
-
-    .logs-panel {
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
-    }
-
-    .logs-table-wrap {
-      overflow-x: auto;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,0.12);
-    }
-
-    .logs-table {
-      width: 100%;
-      min-width: 920px;
-      margin: 0;
-      color: var(--text);
-      border-collapse: collapse;
-    }
-
-    .logs-table th {
-      color: rgba(255,255,255,0.78);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 14px;
-      border-bottom: 1px solid var(--border);
+    .container-box {
+      margin-top: 40px;
       background: rgba(255,255,255,0.05);
-      white-space: nowrap;
-    }
-
-    .logs-table td {
-      padding: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.82);
-      vertical-align: top;
-    }
-
-    .logs-table tr {
-      cursor: pointer;
-      transition: background .15s ease;
-    }
-
-    .logs-table tr:hover,
-    .logs-table tr.active {
-      background: rgba(6,182,212,0.12);
-    }
-
-    .logs-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: var(--text);
-      font-size: 0.85rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .logs-detail {
-      border-left: 1px solid rgba(255,255,255,0.14);
-      padding: 28px 22px;
-      background: rgba(255,255,255,0.035);
-      height: 100%;
-    }
-
-    .logs-detail-title {
-      font-weight: 800;
-      font-size: 1.2rem;
-      margin-bottom: 16px;
-    }
-
-    .logs-preview-img {
-      width: 100%;
-      max-height: 240px;
-      object-fit: cover;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
-      margin-bottom: 16px;
-    }
-
-    .logs-result-box {
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.07);
-      border-radius: 14px;
-      padding: 16px;
-      color: rgba(255,255,255,0.86);
-      line-height: 1.5;
-      min-height: 140px;
-    }
-
-    .logs-wave {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      height: 95px;
+      padding: 30px;
       border-radius: 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      margin: 16px 0;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .logs-wave span {
-      width: 7px;
+    table {
+      color: white;
+    }
+
+    th {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    td {
+      font-size: 0.9rem;
+    }
+
+    .tag {
+      background: #06b6d4;
+      padding: 4px 10px;
       border-radius: 999px;
-      display: inline-block;
-      background: linear-gradient(180deg, var(--brand2), var(--brand));
-      opacity: 0.9;
+      font-size: 0.75rem;
+      margin-right: 4px;
     }
 
-    .logs-wave span:nth-child(1) { height: 16px; }
-    .logs-wave span:nth-child(2) { height: 30px; }
-    .logs-wave span:nth-child(3) { height: 50px; }
-    .logs-wave span:nth-child(4) { height: 72px; }
-    .logs-wave span:nth-child(5) { height: 50px; }
-    .logs-wave span:nth-child(6) { height: 30px; }
-    .logs-wave span:nth-child(7) { height: 16px; }
-
-    .logs-secondary-btn {
-      border: none;
-      border-radius: 12px;
-      padding: 12px 16px;
-      font-weight: 800;
-      color: #fff;
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      box-shadow: 0 12px 28px rgba(79,70,229,0.22);
-    }
-
-    .logs-secondary-btn:hover {
-      color: #fff;
-      filter: brightness(1.05);
-    }
-
-    .logs-outline-btn {
-      border: 1px solid rgba(255,255,255,0.28);
-      border-radius: 12px;
-      padding: 11px 16px;
-      font-weight: 800;
-      color: var(--text);
-      background: transparent;
-    }
-
-    .logs-outline-btn:hover {
-      color: #fff;
-      border-color: rgba(6,182,212,0.65);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .logs-input,
-    .logs-select {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 12px;
-      min-height: 44px;
-    }
-
-    .logs-input::placeholder {
-      color: rgba(255,255,255,0.5);
-    }
-
-    .logs-input:focus,
-    .logs-select:focus {
-      background: rgba(255,255,255,0.1);
-      color: var(--text);
-      border-color: rgba(6,182,212,0.55);
-      box-shadow: none;
-    }
-
-    .logs-select option {
-      background: #0b1220;
-      color: #fff;
-    }
-
-    .logs-stat {
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
-      border-radius: 14px;
-      padding: 16px;
-    }
-
-    .logs-stat-number {
-      font-size: 1.7rem;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1;
-    }
-
-    .logs-stat-label {
-      color: var(--muted);
-      font-size: 0.92rem;
-      margin-top: 6px;
-    }
-
-    @media (max-width: 991px) {
-      .logs-main {
-        padding: 24px;
-      }
-
-      .logs-detail {
-        border-left: none;
-        border-top: 1px solid rgba(255,255,255,0.14);
-      }
-    }
+    .nav-link { color: #ccc !important; }
+    .nav-link.active { color: #fff !important; font-weight: bold; }
   </style>
 </head>
 
 <body>
 
-  <!-- NAV -->
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container container-narrow py-2">
-      <a class="navbar-brand" href="index.html">
-        <span class="brand-mark">
-          <img src="Images/favicon.ico" alt="AI">
-        </span>
-        VisionForge AI
-      </a>
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">VisionForge AI</a>
 
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navMain"
-        aria-controls="navMain"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="dashboard.html">Assistant</a></li>
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="logs.html">Logs</a></li>
-          <li class="nav-item"><a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a></li>
-        </ul>
-      </div>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="dashboard.html">Assistant</a>
+      <a class="nav-link active" href="logs.html">Logs</a>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <main class="logs-hero">
-    <div class="container container-narrow">
-      <div id="root"></div>
-    </div>
-  </main>
+<div class="container">
+  <div class="container-box">
+    <h2 class="mb-4">Interaction Logs</h2>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <div>© <span id="year"></span> VisionForge AI</div>
-      <div class="small text-white-50">Interaction Logs • Firestore Records • Accessibility Results</div>
-    </div>
-  </footer>
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Type</th>
+          <th>Query</th>
+          <th>Description</th>
+          <th>Tags</th>
+        </tr>
+      </thead>
+      <tbody id="logsTable"></tbody>
+    </table>
 
-  <div id="toast"></div>
+  </div>
+</div>
 
-  <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+async function loadLogs() {
+  try {
+    const res = await fetch("/api/logs");
+    const data = await res.json();
 
-  <!-- Existing shared JS -->
-  <script src="js/scripts.js"></script>
+    const table = document.getElementById("logsTable");
+    table.innerHTML = "";
 
-  <!-- React CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    data.logs.forEach(log => {
+      const row = document.createElement("tr");
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+      row.innerHTML = `
+        <td>${new Date(log.timestamp).toLocaleString()}</td>
+        <td>${log.inputType}</td>
+        <td>${log.query}</td>
+        <td>${log.description}</td>
+        <td>${log.tags.map(t => `<span class="tag">${t}</span>`).join("")}</td>
+      `;
 
-  <script type="text/babel">
-    const { useMemo, useState } = React;
+      table.appendChild(row);
+    });
 
-    function LogsApp() {
-      const demoLogs = [
-        {
-          id: 1,
-          timestamp: "2026-04-24 08:52 PM",
-          location: "Living Room",
-          inputType: "Image",
-          query: "Is the path clear?",
-          description:
-            "Safety summary: The path appears mostly clear. There is a couch on the left and a table near the center. Move forward carefully and keep slightly to the right.",
-          tags: ["Obstacle", "Path", "Furniture"],
-          image: "Images/dashboard.jpg"
-        },
-        {
-          id: 2,
-          timestamp: "2026-04-24 08:55 PM",
-          location: "Indoor Space",
-          inputType: "Voice",
-          query: "Describe the scene",
-          description:
-            "The scene appears to be an indoor room. There may be furniture ahead, so move slowly. No immediate person or vehicle is visible in this sample result.",
-          tags: ["Voice", "Scene", "Navigation"],
-          image: "Images/dashboard2.jpg"
-        },
-        {
-          id: 3,
-          timestamp: "2026-04-24 08:59 PM",
-          location: "Street Context",
-          inputType: "Image + Voice",
-          query: "What is in front of me?",
-          description:
-            "Safety summary: Check the area before moving. The assistant should identify vehicles, sidewalks, crosswalks, stairs, doors, signs, and people before giving walking guidance.",
-          tags: ["Safety", "Street", "Gemini"],
-          image: "Images/dashboard3.jpg"
-        },
-        {
-          id: 4,
-          timestamp: "2026-04-24 09:03 PM",
-          location: "Demo Record",
-          inputType: "Image",
-          query: "Find obstacles",
-          description:
-            "Possible obstacle detected near the walking area. The recommended action is to pause, scan the area, and move around the object carefully.",
-          tags: ["Obstacle", "Warning"],
-          image: "Images/hero.jpg"
-        }
-      ];
+  } catch (err) {
+    console.error(err);
+  }
+}
 
-      const [logs] = useState(demoLogs);
-      const [selectedLog, setSelectedLog] = useState(demoLogs[0]);
-      const [searchText, setSearchText] = useState("");
-      const [inputFilter, setInputFilter] = useState("All");
+loadLogs();
+</script>
 
-      const filteredLogs = useMemo(() => {
-        return logs.filter((log) => {
-          const matchesType =
-            inputFilter === "All" || log.inputType.toLowerCase().includes(inputFilter.toLowerCase());
-
-          const combinedText = `${log.timestamp} ${log.location} ${log.inputType} ${log.query} ${log.description} ${log.tags.join(" ")}`.toLowerCase();
-
-          const matchesSearch = combinedText.includes(searchText.toLowerCase());
-
-          return matchesType && matchesSearch;
-        });
-      }, [logs, searchText, inputFilter]);
-
-      function playSelectedDescription() {
-        if (!selectedLog?.description) {
-          return;
-        }
-
-        if (!window.speechSynthesis) {
-          window.vfToast?.("Text-to-speech is not supported in this browser.");
-          return;
-        }
-
-        window.speechSynthesis.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(selectedLog.description);
-        utterance.lang = "en-US";
-        utterance.rate = 0.92;
-        utterance.pitch = 1;
-
-        window.speechSynthesis.speak(utterance);
-      }
-
-      function stopSpeech() {
-        window.speechSynthesis?.cancel();
-      }
-
-      function clearFilters() {
-        setSearchText("");
-        setInputFilter("All");
-      }
-
-      return (
-        <div className="logs-shell">
-          <div className="row g-0">
-            <div className="col-lg-9">
-              <div className="logs-main">
-                <div className="d-flex flex-wrap gap-2 mb-3">
-                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
-                    Firestore-ready
-                  </span>
-                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
-                    Interaction History
-                  </span>
-                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
-                    Audio Playback
-                  </span>
-                </div>
-
-                <h1 className="logs-title">Interaction History</h1>
-
-                <p className="logs-subtitle">
-                  Review previous accessibility analyses, voice questions, image results, and stored AI responses.
-                  This page will be connected to Firestore in the backend step.
-                </p>
-
-                <div className="row g-3 mb-4">
-                  <div className="col-md-4">
-                    <div className="logs-stat">
-                      <div className="logs-stat-number">{logs.length}</div>
-                      <div className="logs-stat-label">Total demo records</div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4">
-                    <div className="logs-stat">
-                      <div className="logs-stat-number">3</div>
-                      <div className="logs-stat-label">Input categories</div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4">
-                    <div className="logs-stat">
-                      <div className="logs-stat-number">Ready</div>
-                      <div className="logs-stat-label">Firestore integration status</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="logs-panel mb-4">
-                  <div className="row g-3 align-items-end">
-                    <div className="col-md-5">
-                      <label className="form-label text-white-50">Search logs</label>
-                      <input
-                        className="form-control logs-input"
-                        value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
-                        placeholder="Search obstacle, voice, path, street..."
-                      />
-                    </div>
-
-                    <div className="col-md-4">
-                      <label className="form-label text-white-50">Input type</label>
-                      <select
-                        className="form-select logs-select"
-                        value={inputFilter}
-                        onChange={(e) => setInputFilter(e.target.value)}
-                      >
-                        <option value="All">All</option>
-                        <option value="Image">Image</option>
-                        <option value="Voice">Voice</option>
-                        <option value="Image + Voice">Image + Voice</option>
-                      </select>
-                    </div>
-
-                    <div className="col-md-3">
-                      <button className="logs-outline-btn w-100" type="button" onClick={clearFilters}>
-                        Clear Filters
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="logs-table-wrap">
-                  <table className="logs-table">
-                    <thead>
-                      <tr>
-                        <th>Timestamp</th>
-                        <th>Location</th>
-                        <th>Input Type</th>
-                        <th>Query</th>
-                        <th>Detailed AI Description</th>
-                        <th>Tags</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      {filteredLogs.map((log) => (
-                        <tr
-                          key={log.id}
-                          className={selectedLog.id === log.id ? "active" : ""}
-                          onClick={() => setSelectedLog(log)}
-                        >
-                          <td>{log.timestamp}</td>
-                          <td>{log.location}</td>
-                          <td>
-                            <span className="logs-badge">
-                              {log.inputType === "Image" ? "📷" : log.inputType === "Voice" ? "🎤" : "📷🎤"}
-                              {log.inputType}
-                            </span>
-                          </td>
-                          <td>{log.query}</td>
-                          <td>{log.description.slice(0, 110)}...</td>
-                          <td>
-                            <div className="d-flex gap-2 flex-wrap">
-                              {log.tags.map((tag) => (
-                                <span className="logs-badge" key={tag}>{tag}</span>
-                              ))}
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                {filteredLogs.length === 0 && (
-                  <div className="logs-panel mt-3 text-white-50">
-                    No logs match your current search/filter.
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <aside className="col-lg-3">
-              <div className="logs-detail">
-                <div className="logs-detail-title">Log Detail Panel</div>
-
-                {selectedLog && (
-                  <>
-                    <img
-                      className="logs-preview-img"
-                      src={selectedLog.image}
-                      alt="Selected log visual preview"
-                    />
-
-                    <div className="mb-3">
-                      <span className="logs-badge">{selectedLog.inputType}</span>
-                    </div>
-
-                    <div className="small text-white-50 mb-1">Question</div>
-                    <div className="mb-3 fw-semibold">{selectedLog.query}</div>
-
-                    <div className="small text-white-50 mb-1">AI accessibility description</div>
-                    <div className="logs-result-box">
-                      {selectedLog.description}
-                    </div>
-
-                    <div className="logs-wave" aria-hidden="true">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-
-                    <div className="d-grid gap-2">
-                      <button className="logs-secondary-btn" type="button" onClick={playSelectedDescription}>
-                        ▶ Play Audio Log
-                      </button>
-
-                      <button className="logs-outline-btn" type="button" onClick={stopSpeech}>
-                        Stop Audio
-                      </button>
-
-                      <a className="logs-outline-btn text-center" href="dashboard.html">
-                        Back to Assistant
-                      </a>
-                    </div>
-
-                    <hr style={{borderColor: "rgba(255,255,255,0.14)"}} />
-
-                    <div className="small text-white-50">
-                      Later, this panel will show real Firestore records created after each image and voice analysis.
-                    </div>
-                  </>
-                )}
-              </div>
-            </aside>
-          </div>
-        </div>
-      );
-    }
-
-    ReactDOM.createRoot(document.getElementById("root")).render(<LogsApp />);
-  </script>
 </body>
 </html>

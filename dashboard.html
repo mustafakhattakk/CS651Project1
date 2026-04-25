@@ -5,21 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Assistant - VisionForge AI</title>
 
-  <!-- FAVICON -->
   <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
   <link rel="shortcut icon" type="image/x-icon" href="Images/favicon.ico">
 
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Existing project CSS -->
   <link rel="stylesheet" href="css/styles.css" />
 
   <style>
-    .assistant-hero {
-      padding: 54px 0 34px;
-    }
-
+    .assistant-hero { padding: 54px 0 34px; }
     .assistant-shell {
       border: 1px solid var(--border);
       background: linear-gradient(180deg, rgba(255,255,255,0.085), rgba(255,255,255,0.035));
@@ -27,11 +20,7 @@
       box-shadow: var(--shadow);
       overflow: hidden;
     }
-
-    .assistant-main {
-      padding: 36px;
-    }
-
+    .assistant-main { padding: 36px; }
     .assistant-title {
       font-size: clamp(2.2rem, 4.4vw, 4.4rem);
       line-height: 1.02;
@@ -40,14 +29,12 @@
       margin: 0 0 14px;
       color: var(--text);
     }
-
     .assistant-subtitle {
       color: var(--muted);
       font-size: 1.08rem;
       max-width: 760px;
       margin-bottom: 24px;
     }
-
     .assistant-panel {
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.06);
@@ -55,7 +42,6 @@
       padding: 22px;
       box-shadow: 0 14px 40px rgba(0,0,0,0.18);
     }
-
     .assistant-primary-action {
       width: 100%;
       border: none;
@@ -68,49 +54,23 @@
       box-shadow: 0 18px 42px rgba(79,70,229,0.28);
       transition: transform .16s ease, filter .16s ease;
     }
-
-    .assistant-primary-action:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.06);
-    }
-
-    .assistant-label {
-      color: var(--text);
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .assistant-help {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .assistant-input,
-    .assistant-result {
+    .assistant-primary-action:hover { transform: translateY(-1px); filter: brightness(1.06); }
+    .assistant-label { color: var(--text); font-weight: 700; margin-bottom: 8px; }
+    .assistant-help { color: var(--muted); font-size: 0.95rem; }
+    .assistant-input, .assistant-result {
       background: rgba(255,255,255,0.08);
       border: 1px solid var(--border);
       color: var(--text);
       border-radius: 14px;
     }
-
-    .assistant-input {
-      min-height: 54px;
-      font-size: 1.05rem;
-    }
-
-    .assistant-input::placeholder,
-    .assistant-result::placeholder {
-      color: rgba(255,255,255,0.5);
-    }
-
-    .assistant-input:focus,
-    .assistant-result:focus {
+    .assistant-input { min-height: 54px; font-size: 1.05rem; }
+    .assistant-input::placeholder, .assistant-result::placeholder { color: rgba(255,255,255,0.5); }
+    .assistant-input:focus, .assistant-result:focus {
       background: rgba(255,255,255,0.1);
       color: var(--text);
       border-color: rgba(6,182,212,0.55);
       box-shadow: none;
     }
-
     .assistant-result {
       min-height: 270px;
       width: 100%;
@@ -119,7 +79,6 @@
       font-size: clamp(1.05rem, 1.5vw, 1.35rem);
       line-height: 1.55;
     }
-
     .assistant-secondary-btn {
       border: none;
       border-radius: 12px;
@@ -129,12 +88,7 @@
       background: linear-gradient(135deg, var(--brand), var(--brand2));
       box-shadow: 0 12px 28px rgba(79,70,229,0.22);
     }
-
-    .assistant-secondary-btn:hover {
-      color: #fff;
-      filter: brightness(1.05);
-    }
-
+    .assistant-secondary-btn:hover { color: #fff; filter: brightness(1.05); }
     .assistant-outline-btn {
       border: 1px solid rgba(255,255,255,0.28);
       border-radius: 12px;
@@ -143,13 +97,11 @@
       color: var(--text);
       background: transparent;
     }
-
     .assistant-outline-btn:hover {
       color: #fff;
       border-color: rgba(6,182,212,0.65);
       background: rgba(255,255,255,0.08);
     }
-
     .assistant-preview-img {
       width: 100%;
       max-height: 240px;
@@ -158,7 +110,6 @@
       border: 1px solid var(--border);
       box-shadow: 0 14px 34px rgba(0,0,0,0.22);
     }
-
     .assistant-wave {
       display: flex;
       align-items: center;
@@ -170,7 +121,6 @@
       border: 1px solid var(--border);
       margin-bottom: 18px;
     }
-
     .assistant-wave span {
       width: 8px;
       border-radius: 999px;
@@ -178,7 +128,6 @@
       background: linear-gradient(180deg, var(--brand2), var(--brand));
       opacity: 0.9;
     }
-
     .assistant-wave span:nth-child(1) { height: 18px; }
     .assistant-wave span:nth-child(2) { height: 34px; }
     .assistant-wave span:nth-child(3) { height: 58px; }
@@ -186,7 +135,6 @@
     .assistant-wave span:nth-child(5) { height: 58px; }
     .assistant-wave span:nth-child(6) { height: 34px; }
     .assistant-wave span:nth-child(7) { height: 18px; }
-
     .assistant-status {
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.06);
@@ -195,20 +143,13 @@
       padding: 14px 16px;
       font-weight: 700;
     }
-
     .assistant-feed {
       border-left: 1px solid rgba(255,255,255,0.14);
       padding: 28px 22px;
       background: rgba(255,255,255,0.035);
       height: 100%;
     }
-
-    .assistant-feed-title {
-      font-weight: 800;
-      font-size: 1.05rem;
-      margin-bottom: 16px;
-    }
-
+    .assistant-feed-title { font-weight: 800; font-size: 1.05rem; margin-bottom: 16px; }
     .assistant-feed-item {
       display: flex;
       gap: 12px;
@@ -217,7 +158,6 @@
       line-height: 1.35;
       font-size: 0.95rem;
     }
-
     .assistant-feed-dot {
       width: 12px;
       height: 12px;
@@ -226,384 +166,366 @@
       margin-top: 5px;
       flex: 0 0 auto;
     }
-
-    .assistant-hidden-input {
-      display: none;
-    }
-
-    .assistant-mobile-links {
-      display: none;
-    }
-
+    .assistant-hidden-input { display: none; }
+    .assistant-mobile-links { display: none; }
     @media (max-width: 991px) {
-      .assistant-main {
-        padding: 24px;
-      }
-
-      .assistant-feed {
-        border-left: none;
-        border-top: 1px solid rgba(255,255,255,0.14);
-      }
-
-      .assistant-mobile-links {
-        display: flex;
-      }
+      .assistant-main { padding: 24px; }
+      .assistant-feed { border-left: none; border-top: 1px solid rgba(255,255,255,0.14); }
+      .assistant-mobile-links { display: flex; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- NAV -->
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container container-narrow py-2">
-      <a class="navbar-brand" href="index.html">
-        <span class="brand-mark">
-          <img src="Images/favicon.ico" alt="AI">
-        </span>
-        VisionForge AI
-      </a>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container container-narrow py-2">
+    <a class="navbar-brand" href="index.html">
+      <span class="brand-mark"><img src="Images/favicon.ico" alt="AI"></span>
+      VisionForge AI
+    </a>
 
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navMain"
-        aria-controls="navMain"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="dashboard.html">Assistant</a></li>
-          <li class="nav-item"><a class="nav-link" href="logs.html">Logs</a></li>
-          <li class="nav-item"><a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a></li>
-        </ul>
-      </div>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link active" href="dashboard.html">Assistant</a></li>
+        <li class="nav-item"><a class="nav-link" href="logs.html">Logs</a></li>
+        <li class="nav-item"><a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a></li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <main class="assistant-hero">
-    <div class="container container-narrow">
-      <div id="root"></div>
-    </div>
-  </main>
+<main class="assistant-hero">
+  <div class="container container-narrow">
+    <div id="root"></div>
+  </div>
+</main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <div>© <span id="year"></span> VisionForge AI</div>
-      <div class="small text-white-50">Accessibility Assistant • Gemini AI • Voice Output</div>
-    </div>
-  </footer>
+<footer class="footer">
+  <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div>© <span id="year"></span> VisionForge AI</div>
+    <div class="small text-white-50">Accessibility Assistant • Gemini AI • Voice Output</div>
+  </div>
+</footer>
 
-  <div id="toast"></div>
+<div id="toast"></div>
 
-  <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- Existing shared JS -->
-  <script src="js/scripts.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
-  <!-- React CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  const { useRef, useState } = React;
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  function VisionCompanionApp() {
+    const fileInputRef = useRef(null);
 
-  <script type="text/babel">
-    const { useRef, useState } = React;
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState("");
+    const [voiceQuestion, setVoiceQuestion] = useState("");
+    const [resultText, setResultText] = useState(
+      "Upload an image or ask a voice question. The assistant will provide a clear accessibility-focused description here."
+    );
+    const [status, setStatus] = useState("Ready");
+    const [isListening, setIsListening] = useState(false);
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-    function VisionCompanionApp() {
-      const fileInputRef = useRef(null);
+    const recentActivity = [
+      "Backend connection is active.",
+      "Analysis results are saved to server logs.",
+      "Firestore and Gemini integration comes next."
+    ];
 
-      const [selectedImage, setSelectedImage] = useState(null);
-      const [imagePreview, setImagePreview] = useState("");
-      const [voiceQuestion, setVoiceQuestion] = useState("");
-      const [resultText, setResultText] = useState(
-        "Upload an image or ask a voice question. The assistant will provide a clear accessibility-focused description here."
-      );
-      const [status, setStatus] = useState("Ready");
-      const [isListening, setIsListening] = useState(false);
+    function handleImageSelect(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
 
-      const recentActivity = [
-        "Safety-first description mode is ready.",
-        "Voice question support is available in Chrome.",
-        "Results will later be saved to Firestore logs."
-      ];
-
-      function handleImageSelect(event) {
-        const file = event.target.files?.[0];
-
-        if (!file) {
-          return;
-        }
-
-        setSelectedImage(file);
-        setImagePreview(URL.createObjectURL(file));
-        setStatus("Image selected. You can now ask a question or analyze the scene.");
-      }
-
-      function openImagePicker() {
-        fileInputRef.current?.click();
-      }
-
-      function startVoiceInput() {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-        if (!SpeechRecognition) {
-          setStatus("Voice recognition is not supported in this browser. Please type your question instead.");
-          window.vfToast?.("Voice recognition is not supported in this browser.");
-          return;
-        }
-
-        const recognition = new SpeechRecognition();
-        recognition.lang = "en-US";
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
-
-        setIsListening(true);
-        setStatus("Listening... ask something like: What is in front of me?");
-
-        recognition.start();
-
-        recognition.onresult = function(event) {
-          const transcript = event.results[0][0].transcript;
-          setVoiceQuestion(transcript);
-          setStatus("Voice question captured.");
-          window.vfToast?.("Voice question captured.");
-        };
-
-        recognition.onerror = function() {
-          setStatus("Could not capture voice. Try again or type your question.");
-          window.vfToast?.("Voice capture failed.");
-        };
-
-        recognition.onend = function() {
-          setIsListening(false);
-        };
-      }
-
-      function analyzeScene() {
-        if (!selectedImage && !voiceQuestion.trim()) {
-          setStatus("Please upload an image or ask a question first.");
-          window.vfToast?.("Upload an image or ask a question first.");
-          return;
-        }
-
-        setStatus("Analyzing scene...");
-
-        const demoResponse =
-          "Safety summary: The scene appears mostly clear. Move forward carefully. Important details: check for objects near your walking path, especially chairs, tables, doors, stairs, people, vehicles, or uneven surfaces. Navigation guidance: proceed slowly and listen for the audio description before moving.";
-
-        setResultText(demoResponse);
-        speakText(demoResponse);
-        setStatus("Analysis complete. Audio description is playing.");
-      }
-
-      function speakText(text) {
-        if (!window.speechSynthesis) {
-          setStatus("Text-to-speech is not supported in this browser.");
-          window.vfToast?.("Text-to-speech is not supported.");
-          return;
-        }
-
-        window.speechSynthesis.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "en-US";
-        utterance.rate = 0.92;
-        utterance.pitch = 1;
-
-        window.speechSynthesis.speak(utterance);
-      }
-
-      function stopSpeech() {
-        window.speechSynthesis?.cancel();
-        setStatus("Audio stopped.");
-      }
-
-      function clearAll() {
-        setSelectedImage(null);
-        setImagePreview("");
-        setVoiceQuestion("");
-        setResultText("Upload an image or ask a voice question. The assistant will provide a clear accessibility-focused description here.");
-        setStatus("Ready");
-        window.speechSynthesis?.cancel();
-
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-      }
-
-      return (
-        <div className="assistant-shell">
-          <div className="row g-0">
-            <div className="col-lg-9">
-              <div className="assistant-main">
-                <div className="d-flex flex-wrap gap-2 mb-3">
-                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
-                    Voice-first
-                  </span>
-                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
-                    Accessibility
-                  </span>
-                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
-                    Navigation Help
-                  </span>
-                </div>
-
-                <h1 className="assistant-title">Vision Companion - Your Navigator</h1>
-
-                <p className="assistant-subtitle">
-                  Upload an image or ask a voice question. VisionForge will focus on practical accessibility details:
-                  obstacles, people, paths, safety risks, and useful navigation context.
-                </p>
-
-                <input
-                  ref={fileInputRef}
-                  className="assistant-hidden-input"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageSelect}
-                />
-
-                <button className="assistant-primary-action mb-4" type="button" onClick={openImagePicker}>
-                  🎙️ Upload Image or Ask 📷
-                </button>
-
-                <div className="row g-4 align-items-stretch">
-                  <div className="col-xl-7">
-                    <div className="assistant-panel h-100">
-                      <div className="mb-3">
-                        <div className="assistant-label">Voice question</div>
-                        <input
-                          className="form-control assistant-input"
-                          value={voiceQuestion}
-                          onChange={(e) => setVoiceQuestion(e.target.value)}
-                          placeholder="Example: What is in front of me?"
-                        />
-                        <div className="assistant-help mt-2">
-                          You can type a question or use the microphone button.
-                        </div>
-                      </div>
-
-                      <div className="d-flex gap-2 flex-wrap mb-4">
-                        <button className="assistant-secondary-btn" type="button" onClick={startVoiceInput}>
-                          {isListening ? "Listening..." : "🎤 Record Voice Question"}
-                        </button>
-
-                        <button className="assistant-outline-btn" type="button" onClick={analyzeScene}>
-                          Analyze Scene
-                        </button>
-
-                        <button className="assistant-outline-btn" type="button" onClick={clearAll}>
-                          Clear
-                        </button>
-                      </div>
-
-                      {imagePreview && (
-                        <div className="mb-4">
-                          <div className="assistant-label">Selected image preview</div>
-                          <img className="assistant-preview-img" src={imagePreview} alt="Selected upload preview" />
-                        </div>
-                      )}
-
-                      <div className="assistant-label">Accessibility description</div>
-                      <textarea
-                        className="assistant-result"
-                        value={resultText}
-                        onChange={(e) => setResultText(e.target.value)}
-                        aria-label="Accessibility description result"
-                      ></textarea>
-                    </div>
-                  </div>
-
-                  <div className="col-xl-5">
-                    <div className="assistant-panel h-100 d-flex flex-column justify-content-center">
-                      <div className="assistant-wave" aria-hidden="true">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-
-                      <button className="assistant-secondary-btn mb-3" type="button" onClick={() => speakText(resultText)}>
-                        ▶ Play Audio Description
-                      </button>
-
-                      <button className="assistant-outline-btn mb-4" type="button" onClick={stopSpeech}>
-                        Stop Audio
-                      </button>
-
-                      <div className="assistant-status">
-                        Status: {status}
-                      </div>
-
-                      <div className="assistant-help mt-3">
-                        Built for simple interaction: image, voice question, clear spoken guidance.
-                      </div>
-
-                      <div className="assistant-mobile-links gap-2 flex-wrap mt-4">
-                        <a className="btn btn-outline-light" href="logs.html">View Logs</a>
-                        <a className="btn btn-outline-light" href="index.html">Back Home</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <aside className="col-lg-3">
-              <div className="assistant-feed">
-                <div className="assistant-feed-title">Activity Feed</div>
-
-                {recentActivity.map((item, index) => (
-                  <div className="assistant-feed-item" key={index}>
-                    <span className="assistant-feed-dot"></span>
-                    <span>{item}</span>
-                  </div>
-                ))}
-
-                <hr style={{borderColor: "rgba(255,255,255,0.14)"}} />
-
-                <div className="assistant-feed-title mt-4">Main Focus</div>
-
-                <div className="assistant-feed-item">
-                  <span className="assistant-feed-dot"></span>
-                  <span>Describe obstacles, people, paths, signs, doors, stairs, and vehicles.</span>
-                </div>
-
-                <div className="assistant-feed-item">
-                  <span className="assistant-feed-dot"></span>
-                  <span>Return short, direct, spoken guidance first.</span>
-                </div>
-
-                <div className="mt-4">
-                  <a className="btn btn-outline-light w-100 mb-2" href="logs.html">View Logs</a>
-                  <a className="btn btn-outline-light w-100" href="index.html">Back Home</a>
-                </div>
-              </div>
-            </aside>
-          </div>
-        </div>
-      );
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
+      setStatus("Image selected. You can now ask a question or analyze the scene.");
+      window.vfToast?.("Image selected.");
     }
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<VisionCompanionApp />);
-  </script>
+    function openImagePicker() {
+      fileInputRef.current?.click();
+    }
+
+    function startVoiceInput() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (!SpeechRecognition) {
+        setStatus("Voice recognition is not supported in this browser. Please type your question instead.");
+        window.vfToast?.("Voice recognition is not supported in this browser.");
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      setIsListening(true);
+      setStatus("Listening... ask something like: What is in front of me?");
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        setVoiceQuestion(transcript);
+        setStatus("Voice question captured.");
+        window.vfToast?.("Voice question captured.");
+      };
+
+      recognition.onerror = function() {
+        setStatus("Could not capture voice. Try again or type your question.");
+        window.vfToast?.("Voice capture failed.");
+      };
+
+      recognition.onend = function() {
+        setIsListening(false);
+      };
+    }
+
+    async function analyzeScene() {
+      if (!selectedImage && !voiceQuestion.trim()) {
+        setStatus("Please upload an image or ask a question first.");
+        window.vfToast?.("Upload an image or ask a question first.");
+        return;
+      }
+
+      try {
+        setIsAnalyzing(true);
+        setStatus("Sending request to backend...");
+        window.speechSynthesis?.cancel();
+
+        const formData = new FormData();
+
+        if (selectedImage) {
+          formData.append("image", selectedImage);
+        }
+
+        formData.append(
+          "question",
+          voiceQuestion.trim() || "Describe the scene for safe navigation."
+        );
+
+        const response = await fetch("/api/analyze", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "Analysis failed.");
+        }
+
+        const description = data.result.description;
+
+        setResultText(description);
+        setStatus("Backend analysis complete. Audio description is playing.");
+        window.vfToast?.("Analysis saved to logs.");
+        speakText(description);
+      } catch (error) {
+        console.error(error);
+        setStatus("Something went wrong while analyzing the scene.");
+        setResultText("Error: The assistant could not complete the analysis. Please check that the backend server is running.");
+        window.vfToast?.("Analysis failed.");
+      } finally {
+        setIsAnalyzing(false);
+      }
+    }
+
+    function speakText(text) {
+      if (!window.speechSynthesis) {
+        setStatus("Text-to-speech is not supported in this browser.");
+        window.vfToast?.("Text-to-speech is not supported.");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US";
+      utterance.rate = 0.92;
+      utterance.pitch = 1;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeech() {
+      window.speechSynthesis?.cancel();
+      setStatus("Audio stopped.");
+    }
+
+    function clearAll() {
+      setSelectedImage(null);
+      setImagePreview("");
+      setVoiceQuestion("");
+      setResultText("Upload an image or ask a voice question. The assistant will provide a clear accessibility-focused description here.");
+      setStatus("Ready");
+      window.speechSynthesis?.cancel();
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+
+    return (
+      <div className="assistant-shell">
+        <div className="row g-0">
+          <div className="col-lg-9">
+            <div className="assistant-main">
+              <div className="d-flex flex-wrap gap-2 mb-3">
+                <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>Voice-first</span>
+                <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>Accessibility</span>
+                <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>Backend Connected</span>
+              </div>
+
+              <h1 className="assistant-title">Vision Companion - Your Navigator</h1>
+
+              <p className="assistant-subtitle">
+                Upload an image or ask a voice question. VisionForge focuses on practical accessibility details:
+                obstacles, people, paths, safety risks, and navigation context.
+              </p>
+
+              <input
+                ref={fileInputRef}
+                className="assistant-hidden-input"
+                type="file"
+                accept="image/*"
+                onChange={handleImageSelect}
+              />
+
+              <button className="assistant-primary-action mb-4" type="button" onClick={openImagePicker}>
+                🎙️ Upload Image or Ask 📷
+              </button>
+
+              <div className="row g-4 align-items-stretch">
+                <div className="col-xl-7">
+                  <div className="assistant-panel h-100">
+                    <div className="mb-3">
+                      <div className="assistant-label">Voice question</div>
+                      <input
+                        className="form-control assistant-input"
+                        value={voiceQuestion}
+                        onChange={(e) => setVoiceQuestion(e.target.value)}
+                        placeholder="Example: What is in front of me?"
+                      />
+                      <div className="assistant-help mt-2">You can type a question or use the microphone button.</div>
+                    </div>
+
+                    <div className="d-flex gap-2 flex-wrap mb-4">
+                      <button className="assistant-secondary-btn" type="button" onClick={startVoiceInput}>
+                        {isListening ? "Listening..." : "🎤 Record Voice Question"}
+                      </button>
+
+                      <button className="assistant-outline-btn" type="button" onClick={analyzeScene} disabled={isAnalyzing}>
+                        {isAnalyzing ? "Analyzing..." : "Analyze Scene"}
+                      </button>
+
+                      <button className="assistant-outline-btn" type="button" onClick={clearAll}>
+                        Clear
+                      </button>
+                    </div>
+
+                    {imagePreview && (
+                      <div className="mb-4">
+                        <div className="assistant-label">Selected image preview</div>
+                        <img className="assistant-preview-img" src={imagePreview} alt="Selected upload preview" />
+                      </div>
+                    )}
+
+                    <div className="assistant-label">Accessibility description</div>
+                    <textarea
+                      className="assistant-result"
+                      value={resultText}
+                      onChange={(e) => setResultText(e.target.value)}
+                      aria-label="Accessibility description result"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div className="col-xl-5">
+                  <div className="assistant-panel h-100 d-flex flex-column justify-content-center">
+                    <div className="assistant-wave" aria-hidden="true">
+                      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+
+                    <button className="assistant-secondary-btn mb-3" type="button" onClick={() => speakText(resultText)}>
+                      ▶ Play Audio Description
+                    </button>
+
+                    <button className="assistant-outline-btn mb-4" type="button" onClick={stopSpeech}>
+                      Stop Audio
+                    </button>
+
+                    <div className="assistant-status">Status: {status}</div>
+
+                    <div className="assistant-help mt-3">
+                      Built for simple interaction: image, voice question, clear spoken guidance.
+                    </div>
+
+                    <div className="assistant-mobile-links gap-2 flex-wrap mt-4">
+                      <a className="btn btn-outline-light" href="logs.html">View Logs</a>
+                      <a className="btn btn-outline-light" href="index.html">Back Home</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <aside className="col-lg-3">
+            <div className="assistant-feed">
+              <div className="assistant-feed-title">Activity Feed</div>
+
+              {recentActivity.map((item, index) => (
+                <div className="assistant-feed-item" key={index}>
+                  <span className="assistant-feed-dot"></span>
+                  <span>{item}</span>
+                </div>
+              ))}
+
+              <hr style={{borderColor: "rgba(255,255,255,0.14)"}} />
+
+              <div className="assistant-feed-title mt-4">Main Focus</div>
+
+              <div className="assistant-feed-item">
+                <span className="assistant-feed-dot"></span>
+                <span>Describe obstacles, people, paths, signs, doors, stairs, and vehicles.</span>
+              </div>
+
+              <div className="assistant-feed-item">
+                <span className="assistant-feed-dot"></span>
+                <span>Return short, direct, spoken guidance first.</span>
+              </div>
+
+              <div className="mt-4">
+                <a className="btn btn-outline-light w-100 mb-2" href="logs.html">View Logs</a>
+                <a className="btn btn-outline-light w-100" href="index.html">Back Home</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById("root")).render(<VisionCompanionApp />);
+</script>
 </body>
 </html>
