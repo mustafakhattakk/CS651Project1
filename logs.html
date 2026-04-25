@@ -5,113 +5,589 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Logs - VisionForge AI</title>
 
-  <link rel="icon" href="Images/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="Images/favicon.ico">
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
 
   <style>
-    body {
-      background: linear-gradient(135deg,#0f172a,#1e293b);
-      color: #fff;
-      font-family: system-ui;
+    .logs-hero { padding: 54px 0 34px; }
+    .logs-shell {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.085), rgba(255,255,255,0.035));
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
-
-    .container-box {
-      margin-top: 40px;
-      background: rgba(255,255,255,0.05);
-      padding: 30px;
+    .logs-main { padding: 32px; }
+    .logs-title {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 0 0 10px;
+      color: var(--text);
+    }
+    .logs-subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+    .logs-panel {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.1);
+      padding: 20px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
     }
-
-    table {
-      color: white;
+    .logs-table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.12);
     }
-
-    th {
-      font-size: 0.9rem;
-      color: #aaa;
+    .logs-table {
+      width: 100%;
+      min-width: 920px;
+      margin: 0;
+      color: var(--text);
+      border-collapse: collapse;
     }
-
-    td {
-      font-size: 0.9rem;
+    .logs-table th {
+      color: rgba(255,255,255,0.78);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      white-space: nowrap;
     }
-
-    .tag {
-      background: #06b6d4;
-      padding: 4px 10px;
+    .logs-table td {
+      padding: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.82);
+      vertical-align: top;
+    }
+    .logs-table tr {
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+    .logs-table tr:hover,
+    .logs-table tr.active { background: rgba(6,182,212,0.12); }
+    .logs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      padding: 6px 10px;
       border-radius: 999px;
-      font-size: 0.75rem;
-      margin-right: 4px;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
     }
-
-    .nav-link { color: #ccc !important; }
-    .nav-link.active { color: #fff !important; font-weight: bold; }
+    .logs-detail {
+      border-left: 1px solid rgba(255,255,255,0.14);
+      padding: 28px 22px;
+      background: rgba(255,255,255,0.035);
+      height: 100%;
+    }
+    .logs-detail-title {
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+    .logs-preview-img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
+      margin-bottom: 16px;
+    }
+    .logs-result-box {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 16px;
+      color: rgba(255,255,255,0.86);
+      line-height: 1.5;
+      min-height: 140px;
+    }
+    .logs-wave {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      height: 95px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      margin: 16px 0;
+    }
+    .logs-wave span {
+      width: 7px;
+      border-radius: 999px;
+      display: inline-block;
+      background: linear-gradient(180deg, var(--brand2), var(--brand));
+      opacity: 0.9;
+    }
+    .logs-wave span:nth-child(1) { height: 16px; }
+    .logs-wave span:nth-child(2) { height: 30px; }
+    .logs-wave span:nth-child(3) { height: 50px; }
+    .logs-wave span:nth-child(4) { height: 72px; }
+    .logs-wave span:nth-child(5) { height: 50px; }
+    .logs-wave span:nth-child(6) { height: 30px; }
+    .logs-wave span:nth-child(7) { height: 16px; }
+    .logs-secondary-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 12px 28px rgba(79,70,229,0.22);
+    }
+    .logs-secondary-btn:hover { color: #fff; filter: brightness(1.05); }
+    .logs-outline-btn {
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-weight: 800;
+      color: var(--text);
+      background: transparent;
+    }
+    .logs-outline-btn:hover {
+      color: #fff;
+      border-color: rgba(6,182,212,0.65);
+      background: rgba(255,255,255,0.08);
+    }
+    .logs-input,
+    .logs-select {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 12px;
+      min-height: 44px;
+    }
+    .logs-input::placeholder { color: rgba(255,255,255,0.5); }
+    .logs-input:focus,
+    .logs-select:focus {
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+      border-color: rgba(6,182,212,0.55);
+      box-shadow: none;
+    }
+    .logs-select option { background: #0b1220; color: #fff; }
+    .logs-stat {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .logs-stat-number {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+    .logs-stat-label {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 6px;
+    }
+    .user-badge {
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    @media (max-width: 991px) {
+      .logs-main { padding: 24px; }
+      .logs-detail {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.14);
+      }
+    }
   </style>
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">VisionForge AI</a>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container container-narrow py-2">
+    <a class="navbar-brand" href="index.html">
+      <span class="brand-mark">
+        <img src="Images/favicon.ico" alt="AI">
+      </span>
+      VisionForge AI
+    </a>
 
-    <div class="navbar-nav ms-auto">
-      <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link" href="dashboard.html">Assistant</a>
-      <a class="nav-link active" href="logs.html">Logs</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Assistant</a></li>
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="logs.html">Logs</a></li>
+
+        <li class="nav-item d-none" id="userNav">
+          <span class="user-badge">Logged in as <span id="usernameDisplay"></span></span>
+        </li>
+
+        <li class="nav-item" id="signInNav">
+          <a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a>
+        </li>
+
+        <li class="nav-item d-none" id="logoutNav">
+          <button class="btn btn-sm btn-outline-light ms-lg-2" id="logoutBtn">Sign Out</button>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
 
-<div class="container">
-  <div class="container-box">
-    <h2 class="mb-4">Interaction Logs</h2>
-
-    <table class="table table-dark table-striped">
-      <thead>
-        <tr>
-          <th>Time</th>
-          <th>Type</th>
-          <th>Query</th>
-          <th>Description</th>
-          <th>Tags</th>
-        </tr>
-      </thead>
-      <tbody id="logsTable"></tbody>
-    </table>
-
+<main class="logs-hero">
+  <div class="container container-narrow">
+    <div id="root"></div>
   </div>
-</div>
+</main>
+
+<footer class="footer">
+  <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div>© <span id="year"></span> VisionForge AI</div>
+    <div class="small text-white-50">Interaction Logs • Datastore Records • Accessibility Results</div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/scripts.js"></script>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 <script>
-async function loadLogs() {
-  try {
-    const res = await fetch("/api/logs");
-    const data = await res.json();
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-    const table = document.getElementById("logsTable");
-    table.innerHTML = "";
+  const SESSION_KEY = "vf_session_token";
+  const USER_KEY = "vf_current_user";
 
-    data.logs.forEach(log => {
-      const row = document.createElement("tr");
-
-      row.innerHTML = `
-        <td>${new Date(log.timestamp).toLocaleString()}</td>
-        <td>${log.inputType}</td>
-        <td>${log.query}</td>
-        <td>${log.description}</td>
-        <td>${log.tags.map(t => `<span class="tag">${t}</span>`).join("")}</td>
-      `;
-
-      table.appendChild(row);
-    });
-
-  } catch (err) {
-    console.error(err);
+  function readStoredUser() {
+    try {
+      const raw = localStorage.getItem(USER_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
   }
-}
 
-loadLogs();
+  function readSessionToken() {
+    return localStorage.getItem(SESSION_KEY) || "";
+  }
+
+  function renderAuthNav() {
+    const user = readStoredUser();
+
+    if (user) {
+      document.getElementById("usernameDisplay").textContent = user.name;
+      document.getElementById("userNav").classList.remove("d-none");
+      document.getElementById("logoutNav").classList.remove("d-none");
+      document.getElementById("signInNav").classList.add("d-none");
+    }
+  }
+
+  async function signOutUser() {
+    const token = readSessionToken();
+
+    try {
+      if (token) {
+        await fetch("/api/auth/logout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionToken: token })
+        });
+      }
+    } catch {}
+
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(USER_KEY);
+    window.location.href = "signin.html";
+  }
+
+  document.getElementById("logoutBtn").addEventListener("click", signOutUser);
+  renderAuthNav();
+</script>
+
+<script type="text/babel">
+  const { useMemo, useState, useEffect } = React;
+
+  function LogsApp() {
+    const [logs, setLogs] = useState([]);
+    const [selectedLog, setSelectedLog] = useState(null);
+    const [searchText, setSearchText] = useState("");
+    const [inputFilter, setInputFilter] = useState("All");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      loadLogs();
+    }, []);
+
+    async function loadLogs() {
+      try {
+        const token = readSessionToken();
+        const url = token ? `/api/logs?sessionToken=${encodeURIComponent(token)}` : "/api/logs";
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.success && Array.isArray(data.logs)) {
+          setLogs(data.logs);
+          setSelectedLog(data.logs[0] || null);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    const filteredLogs = useMemo(() => {
+      return logs.filter((log) => {
+        const inputType = log.inputType || "";
+        const tags = log.tags || [];
+
+        const matchesType =
+          inputFilter === "All" || inputType.toLowerCase().includes(inputFilter.toLowerCase());
+
+        const combinedText = `${log.timestamp || ""} ${log.location || ""} ${inputType} ${log.query || ""} ${log.description || ""} ${tags.join(" ")}`.toLowerCase();
+
+        const matchesSearch = combinedText.includes(searchText.toLowerCase());
+
+        return matchesType && matchesSearch;
+      });
+    }, [logs, searchText, inputFilter]);
+
+    function playSelectedDescription() {
+      if (!selectedLog?.description) return;
+
+      if (!window.speechSynthesis) {
+        window.vfToast?.("Text-to-speech is not supported in this browser.");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(selectedLog.description);
+      utterance.lang = "en-US";
+      utterance.rate = 0.92;
+      utterance.pitch = 1;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeech() {
+      window.speechSynthesis?.cancel();
+    }
+
+    function clearFilters() {
+      setSearchText("");
+      setInputFilter("All");
+    }
+
+    return (
+      <div className="logs-shell">
+        <div className="row g-0">
+          <div className="col-lg-9">
+            <div className="logs-main">
+              <div className="d-flex flex-wrap gap-2 mb-3">
+                <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                  Datastore Records
+                </span>
+                <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                  Interaction History
+                </span>
+                <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                  Audio Playback
+                </span>
+              </div>
+
+              <h1 className="logs-title">Interaction History</h1>
+
+              <p className="logs-subtitle">
+                Review previous accessibility analyses, voice questions, image results, and saved assistant responses.
+              </p>
+
+              <div className="row g-3 mb-4">
+                <div className="col-md-4">
+                  <div className="logs-stat">
+                    <div className="logs-stat-number">{logs.length}</div>
+                    <div className="logs-stat-label">Saved records</div>
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  <div className="logs-stat">
+                    <div className="logs-stat-number">3</div>
+                    <div className="logs-stat-label">Input categories</div>
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  <div className="logs-stat">
+                    <div className="logs-stat-number">{loading ? "Loading" : "Ready"}</div>
+                    <div className="logs-stat-label">Database status</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="logs-panel mb-4">
+                <div className="row g-3 align-items-end">
+                  <div className="col-md-5">
+                    <label className="form-label text-white-50">Search logs</label>
+                    <input
+                      className="form-control logs-input"
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      placeholder="Search obstacle, voice, path, street..."
+                    />
+                  </div>
+
+                  <div className="col-md-4">
+                    <label className="form-label text-white-50">Input type</label>
+                    <select
+                      className="form-select logs-select"
+                      value={inputFilter}
+                      onChange={(e) => setInputFilter(e.target.value)}
+                    >
+                      <option value="All">All</option>
+                      <option value="Image">Image</option>
+                      <option value="Voice">Voice</option>
+                      <option value="Image + Voice">Image + Voice</option>
+                    </select>
+                  </div>
+
+                  <div className="col-md-3">
+                    <button className="logs-outline-btn w-100" type="button" onClick={clearFilters}>
+                      Clear Filters
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="logs-table-wrap">
+                <table className="logs-table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>User</th>
+                      <th>Input Type</th>
+                      <th>Query</th>
+                      <th>Detailed AI Description</th>
+                      <th>Tags</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {filteredLogs.map((log, index) => (
+                      <tr
+                        key={log.id || index}
+                        className={selectedLog === log ? "active" : ""}
+                        onClick={() => setSelectedLog(log)}
+                      >
+                        <td>{log.timestamp ? new Date(log.timestamp).toLocaleString() : "N/A"}</td>
+                        <td>{log.userName || log.userLogin || "Guest"}</td>
+                        <td>
+                          <span className="logs-badge">
+                            {(log.inputType || "").includes("Image") ? "📷" : "🎤"} {log.inputType || "Input"}
+                          </span>
+                        </td>
+                        <td>{log.query || "No question"}</td>
+                        <td>{(log.description || "").slice(0, 120)}...</td>
+                        <td>
+                          <div className="d-flex gap-2 flex-wrap">
+                            {(log.tags || []).map((tag) => (
+                              <span className="logs-badge" key={tag}>{tag}</span>
+                            ))}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {!loading && filteredLogs.length === 0 && (
+                <div className="logs-panel mt-3 text-white-50">
+                  No logs found. Use the Assistant page to create a new analysis.
+                </div>
+              )}
+            </div>
+          </div>
+
+          <aside className="col-lg-3">
+            <div className="logs-detail">
+              <div className="logs-detail-title">Log Detail Panel</div>
+
+              {selectedLog ? (
+                <>
+                  <div className="mb-3">
+                    <span className="logs-badge">{selectedLog.inputType || "Input"}</span>
+                  </div>
+
+                  <div className="small text-white-50 mb-1">Question</div>
+                  <div className="mb-3 fw-semibold">{selectedLog.query || "No question"}</div>
+
+                  <div className="small text-white-50 mb-1">AI accessibility description</div>
+                  <div className="logs-result-box">
+                    {selectedLog.description || "No description saved."}
+                  </div>
+
+                  <div className="logs-wave" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+
+                  <div className="d-grid gap-2">
+                    <button className="logs-secondary-btn" type="button" onClick={playSelectedDescription}>
+                      ▶ Play Audio Log
+                    </button>
+
+                    <button className="logs-outline-btn" type="button" onClick={stopSpeech}>
+                      Stop Audio
+                    </button>
+
+                    <a className="logs-outline-btn text-center" href="dashboard.html">
+                      Back to Assistant
+                    </a>
+                  </div>
+                </>
+              ) : (
+                <div className="logs-result-box text-white-50">
+                  Select a log to view details.
+                </div>
+              )}
+            </div>
+          </aside>
+        </div>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById("root")).render(<LogsApp />);
 </script>
 
 </body>
