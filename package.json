@@ -1,7 +1,7 @@
 {
   "name": "visionforge-ai-project2",
   "version": "1.0.0",
-  "description": "VisionForge AI accessibility assistant using Express, Gemini API, and Google Datastore.",
+  "description": "VisionForge AI accessibility assistant using Express, Gemini API, Google Datastore, and simple user accounts.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@google-cloud/datastore": "^9.0.0",
     "@google/generative-ai": "^0.24.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.19.2",
     "multer": "^1.4.5-lts.1"
   }

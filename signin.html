@@ -5,293 +5,391 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sign In - VisionForge AI</title>
 
-  <!-- FAVICON -->
   <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
   <link rel="shortcut icon" type="image/x-icon" href="Images/favicon.ico">
 
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Your CSS -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
 
-  <!-- NAV -->
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container container-narrow py-2">
-      <a class="navbar-brand" href="index.html">
-        <span class="brand-mark">
-          <img src="Images/favicon.ico" alt="AI">
-        </span>
-        VisionForge AI
-      </a>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container container-narrow py-2">
+    <a class="navbar-brand" href="index.html">
+      <span class="brand-mark">
+        <img src="Images/favicon.ico" alt="AI">
+      </span>
+      VisionForge AI
+    </a>
 
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navMain"
-        aria-controls="navMain"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navMain"
+      aria-controls="navMain"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-<li class="nav-item"><a class="nav-link" href="dashboard.html">Assistant</a></li>
-			<li class="nav-item"><a class="nav-link" href="logs.html">Logs</a></li>
-          <li class="nav-item">
-            <a class="btn btn-sm btn-brand ms-lg-2 active" aria-current="page" href="signin.html">Sign In</a>
-          </li>
-        </ul>
-      </div>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Assistant</a></li>
+        <li class="nav-item"><a class="nav-link" href="logs.html">Logs</a></li>
+        <li class="nav-item">
+          <a class="btn btn-sm btn-brand ms-lg-2 active" aria-current="page" href="signin.html">Sign In</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- Minimal HTML (React renders into #root) -->
-  <main class="section pt-4">
-    <div class="container container-narrow">
-      <div id="root"></div>
-    </div>
-  </main>
+<main class="section pt-4">
+  <div class="container container-narrow">
+    <div id="root"></div>
+  </div>
+</main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <div>© <span id="year"></span> VisionForge AI</div>
-      <div class="small text-white-50">Demo sign-in (browser storage) • React state • UI behavior</div>
-    </div>
-  </footer>
+<footer class="footer">
+  <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div>© <span id="year"></span> VisionForge AI</div>
+    <div class="small text-white-50">Account Access • Saved Logs • Personal Assistant</div>
+  </div>
+</footer>
 
-  <div id="toast"></div>
+<div id="toast"></div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/scripts.js"></script>
 
-  <!-- Shared JS (toast, copy email, etc.) -->
-  <script src="js/scripts.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
-  <!-- React (CDN) -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <script type="text/babel">
-    const { useMemo, useState } = React;
+<script type="text/babel">
+  const { useMemo, useState, useEffect } = React;
 
-    // ---- Demo persistence keys ----
-    const ACCOUNTS_KEY = "vf_accounts_v1";   // stores { [login]: { name, email, password } }
-    const SESSION_KEY  = "vf_session_v1";    // stores { login }
+  const SESSION_KEY = "vf_session_token";
+  const USER_KEY = "vf_current_user";
 
-    function readAccounts() {
+  function saveSession(sessionToken, user) {
+    localStorage.setItem(SESSION_KEY, sessionToken);
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+
+  function clearSession() {
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(USER_KEY);
+  }
+
+  function readSessionToken() {
+    return localStorage.getItem(SESSION_KEY) || "";
+  }
+
+  function readStoredUser() {
+    try {
+      const raw = localStorage.getItem(USER_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function SignInPage() {
+    const [mode, setMode] = useState("signin");
+
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [newLogin, setNewLogin] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+
+    const [currentUser, setCurrentUser] = useState(readStoredUser);
+    const [status, setStatus] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const passwordStrength = useMemo(() => {
+      const value = mode === "signin" ? password : newPassword;
+      let score = 0;
+      if (value.length >= 6) score++;
+      if (value.length >= 10) score++;
+      if (/[A-Z]/.test(value)) score++;
+      if (/[0-9]/.test(value)) score++;
+      if (/[^A-Za-z0-9]/.test(value)) score++;
+      return ["Very weak", "Weak", "Okay", "Good", "Strong", "Excellent"][score];
+    }, [password, newPassword, mode]);
+
+    useEffect(() => {
+      async function checkSession() {
+        const token = readSessionToken();
+
+        if (!token) {
+          return;
+        }
+
+        try {
+          const response = await fetch(`/api/auth/me?sessionToken=${encodeURIComponent(token)}`);
+          const data = await response.json();
+
+          if (data.success && data.user) {
+            setCurrentUser(data.user);
+            localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+          } else {
+            clearSession();
+            setCurrentUser(null);
+          }
+        } catch {
+          clearSession();
+          setCurrentUser(null);
+        }
+      }
+
+      checkSession();
+    }, []);
+
+    async function handleSignIn(event) {
+      event.preventDefault();
+
+      if (!login.trim() || !password) {
+        setStatus("Enter your login and password.");
+        window.vfToast?.("Enter your login and password.");
+        return;
+      }
+
       try {
-        const raw = localStorage.getItem(ACCOUNTS_KEY);
-        return raw ? JSON.parse(raw) : {};
-      } catch {
-        return {};
+        setLoading(true);
+        setStatus("Signing in...");
+
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            login,
+            password
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "Could not sign in.");
+        }
+
+        saveSession(data.sessionToken, data.user);
+        setCurrentUser(data.user);
+        setStatus(`Signed in as ${data.user.name}.`);
+        window.vfToast?.("Signed in.");
+
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 700);
+      } catch (error) {
+        setStatus(error.message);
+        window.vfToast?.(error.message);
+      } finally {
+        setLoading(false);
       }
     }
 
-    function writeAccounts(obj) {
-      localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(obj));
-    }
+    async function handleCreateAccount(event) {
+      event.preventDefault();
 
-    function readSession() {
+      if (!name.trim() || !email.trim() || !newLogin.trim() || !newPassword) {
+        setStatus("Complete all fields to create your account.");
+        window.vfToast?.("Complete all fields.");
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        setStatus("Password must be at least 6 characters.");
+        window.vfToast?.("Password must be at least 6 characters.");
+        return;
+      }
+
       try {
-        const raw = localStorage.getItem(SESSION_KEY);
-        return raw ? JSON.parse(raw) : null;
+        setLoading(true);
+        setStatus("Creating account...");
+
+        const response = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            login: newLogin,
+            password: newPassword
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "Could not create account.");
+        }
+
+        saveSession(data.sessionToken, data.user);
+        setCurrentUser(data.user);
+        setStatus(`Welcome, ${data.user.name}.`);
+        window.vfToast?.("Account created.");
+
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 800);
+      } catch (error) {
+        setStatus(error.message);
+        window.vfToast?.(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    async function handleSignOut() {
+      const token = readSessionToken();
+
+      try {
+        if (token) {
+          await fetch("/api/auth/logout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              sessionToken: token
+            })
+          });
+        }
       } catch {
-        return null;
+        // Even if server logout fails, clear local session.
       }
+
+      clearSession();
+      setCurrentUser(null);
+      setStatus("Signed out.");
+      window.vfToast?.("Signed out.");
     }
 
-    function writeSession(sessionObj) {
-      localStorage.setItem(SESSION_KEY, JSON.stringify(sessionObj));
-    }
-
-    function clearSession() {
-      localStorage.removeItem(SESSION_KEY);
-    }
-
-    function SignInPage() {
-      // Login form state
-      const [login, setLogin] = useState("");
-      const [password, setPassword] = useState("");
-
-      // Create account panel state
-      const [showCreate, setShowCreate] = useState(false);
-      const [newName, setNewName] = useState("");
-      const [newEmail, setNewEmail] = useState("");
-      const [newLogin, setNewLogin] = useState("");
-      const [newPassword, setNewPassword] = useState("");
-
-      // Logged in user (demo session)
-      const [sessionLogin, setSessionLogin] = useState(() => {
-        const s = readSession();
-        return s?.login || "";
-      });
-
-      const strength = useMemo(() => {
-        let score = 0;
-        if (password.length >= 8) score++;
-        if (/[A-Z]/.test(password)) score++;
-        if (/[0-9]/.test(password)) score++;
-        if (/[^A-Za-z0-9]/.test(password)) score++;
-        return score; // 0..4
-      }, [password]);
-
-      function handleLoginSubmit(e) {
-        e.preventDefault();
-
-        const l = login.trim();
-        const p = password;
-
-        if (!l || !p) {
-          window.vfToast?.("Enter your login and password.");
-          return;
-        }
-
-        const accounts = readAccounts();
-        const record = accounts[l];
-
-        if (!record) {
-          window.vfToast?.("No account found for that login. Use Create Account first.");
-          return;
-        }
-
-        if (record.password !== p) {
-          window.vfToast?.("That password doesn’t match. Try again.");
-          return;
-        }
-
-        setSessionLogin(l);
-        writeSession({ login: l });
-        window.vfToast?.(`Signed in (demo) as ${l}`);
-      }
-
-      function handleLogout() {
-        setSessionLogin("");
-        clearSession();
-        window.vfToast?.("Signed out.");
-      }
-
-      function handleCreateSubmit(e) {
-        e.preventDefault();
-
-        const name = newName.trim();
-        const email = newEmail.trim();
-        const l = newLogin.trim();
-        const p = newPassword;
-
-        if (!name || !email || !l || !p) {
-          window.vfToast?.("Please complete all fields.");
-          return;
-        }
-
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          window.vfToast?.("Enter a valid email address.");
-          return;
-        }
-
-        const accounts = readAccounts();
-
-        if (accounts[l]) {
-          window.vfToast?.("That login is already taken. Pick another.");
-          return;
-        }
-
-        accounts[l] = { name, email, password: p };
-        writeAccounts(accounts);
-
-        // Required behavior:
-        setLogin(l);
-        setPassword(p);
-        setShowCreate(false);
-
-        setNewName("");
-        setNewEmail("");
-        setNewLogin("");
-        setNewPassword("");
-
-        window.vfToast?.("Account created. Login details filled in.");
-      }
-
-      function handleResetDemo() {
-        localStorage.removeItem(ACCOUNTS_KEY);
-        clearSession();
-        setSessionLogin("");
-        setLogin("");
-        setPassword("");
-        setShowCreate(false);
-        setNewName("");
-        setNewEmail("");
-        setNewLogin("");
-        setNewPassword("");
-        window.vfToast?.("Demo data cleared.");
-      }
-
+    if (currentUser) {
       return (
         <>
-          {/* Header */}
           <div className="hero-card mb-4">
             <div className="hero-inner">
               <div className="row align-items-center g-4">
                 <div className="col-lg-8">
-                  <h1 className="mb-2">Client Portal Sign In</h1>
+                  <h1 className="mb-2">Welcome back, {currentUser.name}</h1>
                   <p className="mb-0 text-white-50">
-                    Access saved caption runs and account settings. This page demonstrates React state and a simple
-                    sign-in flow for Project 1.
+                    Your account is active. You can open the assistant, ask questions, and review your saved logs.
                   </p>
 
-                  <div className="mt-3 small text-white-50">
-                    Demo note: Accounts are stored in your browser (localStorage) for class demonstration only.
+                  <div className="mt-3 d-flex gap-2 flex-wrap">
+                    <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                      {currentUser.login}
+                    </span>
+                    <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                      {currentUser.email}
+                    </span>
+                  </div>
+
+                  <div className="mt-4 d-flex gap-2 flex-wrap">
+                    <a className="btn btn-brand px-4" href="dashboard.html">Open Assistant</a>
+                    <a className="btn btn-outline-light px-4" href="logs.html">View My Logs</a>
+                    <button className="btn btn-outline-light px-4" type="button" onClick={handleSignOut}>
+                      Sign Out
+                    </button>
                   </div>
                 </div>
 
                 <div className="col-lg-4">
                   <div className="preview preview-fixed">
-                    <img src="Images/login-bg.jpg" alt="Login preview" loading="lazy" />
+                    <img src="Images/login-bg.jpg" alt="Account preview" loading="lazy" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Forms grid */}
-          <div className="row g-4">
-            {/* LOGIN */}
-            <div className={showCreate ? "col-lg-6" : "col-lg-7"}>
-              <div className="card-glass p-4 h-100">
-                <div className="d-flex justify-content-between align-items-start gap-3">
-                  <div>
-                    <h2 className="h4 mb-1">Sign In</h2>
-                    <div className="small text-white-50">
-                      {sessionLogin ? (
-                        <>Signed in as <span className="text-white">{sessionLogin}</span></>
-                      ) : (
-                        <>You’re currently signed out.</>
-                      )}
-                    </div>
-                  </div>
+          {status && (
+            <div className="card-glass">
+              <div className="text-white-50">{status}</div>
+            </div>
+          )}
+        </>
+      );
+    }
 
-                  {sessionLogin && (
-                    <button className="btn btn-outline-light btn-sm" type="button" onClick={handleLogout}>
-                      Sign Out
-                    </button>
-                  )}
+    return (
+      <>
+        <div className="hero-card mb-4">
+          <div className="hero-inner">
+            <div className="row align-items-center g-4">
+              <div className="col-lg-8">
+                <h1 className="mb-2">Sign in to VisionForge</h1>
+                <p className="mb-0 text-white-50">
+                  Access your assistant session and keep your saved analyses connected to your account.
+                </p>
+
+                <div className="mt-3 d-flex gap-2 flex-wrap">
+                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                    Personal Logs
+                  </span>
+                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                    Saved Sessions
+                  </span>
+                  <span className="badge rounded-pill text-bg-dark border" style={{borderColor: "rgba(255,255,255,0.18)"}}>
+                    Assistant Access
+                  </span>
                 </div>
+              </div>
 
-                <form className="mt-3" onSubmit={handleLoginSubmit}>
+              <div className="col-lg-4">
+                <div className="preview preview-fixed">
+                  <img src="Images/login-bg.jpg" alt="Sign in preview" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row g-4">
+          <div className="col-lg-7">
+            <div className="card-glass p-4 h-100">
+              <div className="d-flex gap-2 mb-4 flex-wrap">
+                <button
+                  className={mode === "signin" ? "btn btn-brand px-4" : "btn btn-outline-light px-4"}
+                  type="button"
+                  onClick={() => setMode("signin")}
+                >
+                  Sign In
+                </button>
+
+                <button
+                  className={mode === "create" ? "btn btn-brand px-4" : "btn btn-outline-light px-4"}
+                  type="button"
+                  onClick={() => setMode("create")}
+                >
+                  Create Account
+                </button>
+              </div>
+
+              {mode === "signin" ? (
+                <form onSubmit={handleSignIn}>
+                  <h2 className="h4 mb-3">Sign In</h2>
+
                   <div className="mb-3">
                     <label className="form-label text-white-50">Login</label>
                     <input
@@ -300,7 +398,6 @@
                       value={login}
                       onChange={(e) => setLogin(e.target.value)}
                       autoComplete="username"
-                      disabled={!!sessionLogin}
                     />
                   </div>
 
@@ -313,138 +410,142 @@
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       autoComplete="current-password"
-                      disabled={!!sessionLogin}
                     />
                   </div>
 
                   <div className="small text-white-50 mb-3">
-                    Password strength:{" "}
-                    <span className="text-white">
-                      {["Very weak", "Weak", "OK", "Good", "Strong"][strength]}
-                    </span>
+                    Password strength: <span className="text-white">{passwordStrength}</span>
                   </div>
 
                   <div className="d-flex gap-2 flex-wrap">
-                    <button className="btn btn-brand px-4" type="submit" disabled={!!sessionLogin}>
-                      Sign In (Demo)
+                    <button className="btn btn-brand px-4" type="submit" disabled={loading}>
+                      {loading ? "Signing In..." : "Sign In"}
                     </button>
 
                     <button
                       className="btn btn-outline-light px-4"
                       type="button"
-                      onClick={() => setShowCreate((v) => !v)}
-                      disabled={!!sessionLogin}
+                      onClick={() => setMode("create")}
                     >
-                      {showCreate ? "Hide Create Account" : "Create Account"}
+                      Create Account
                     </button>
-
-                    <button
-                      className="btn btn-outline-light px-4"
-                      type="button"
-                      onClick={() => window.copyEmail?.()}
-                    >
-                      Copy Support Email
-                    </button>
-
-                    <button
-                      className="btn btn-outline-light px-4"
-                      type="button"
-                      onClick={handleResetDemo}
-                    >
-                      Reset Demo
-                    </button>
-                  </div>
-
-                  <div className="mt-3 small text-white-50">
-                    Support: <span className="text-white">hello@visionforge.ai</span>
                   </div>
                 </form>
-              </div>
-            </div>
-
-            {/* CREATE ACCOUNT (RIGHT) */}
-            {showCreate && (
-              <div className="col-lg-6">
-                <div className="card-glass p-4 h-100">
+              ) : (
+                <form onSubmit={handleCreateAccount}>
                   <h2 className="h4 mb-3">Create Account</h2>
 
-                  <form onSubmit={handleCreateSubmit}>
-                    <div className="row g-3">
-                      <div className="col-12">
-                        <label className="form-label text-white-50">Full Name</label>
-                        <input
-                          className="form-control form-control-dark"
-                          placeholder="Your name"
-                          value={newName}
-                          onChange={(e) => setNewName(e.target.value)}
-                          autoComplete="name"
-                        />
-                      </div>
-
-                      <div className="col-12">
-                        <label className="form-label text-white-50">Email</label>
-                        <input
-                          type="email"
-                          className="form-control form-control-dark"
-                          placeholder="you@email.com"
-                          value={newEmail}
-                          onChange={(e) => setNewEmail(e.target.value)}
-                          autoComplete="email"
-                        />
-                      </div>
-
-                      <div className="col-md-6">
-                        <label className="form-label text-white-50">New Login</label>
-                        <input
-                          className="form-control form-control-dark"
-                          placeholder="new_login"
-                          value={newLogin}
-                          onChange={(e) => setNewLogin(e.target.value)}
-                        />
-                      </div>
-
-                      <div className="col-md-6">
-                        <label className="form-label text-white-50">New Password</label>
-                        <input
-                          type="password"
-                          className="form-control form-control-dark"
-                          placeholder="new_password"
-                          value={newPassword}
-                          onChange={(e) => setNewPassword(e.target.value)}
-                        />
-                      </div>
-
-                      <div className="col-12 d-flex gap-2 flex-wrap mt-2">
-                        <button className="btn btn-brand px-4" type="submit">
-                          Create (Demo)
-                        </button>
-                        <button
-                          className="btn btn-outline-light px-4"
-                          type="button"
-                          onClick={() => {
-                            setShowCreate(false);
-                            window.vfToast?.("Create account cancelled.");
-                          }}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-
-                      <div className="small text-white-50 mt-2">
-                        After you create an account, this panel closes and the Sign In form auto-fills with your new login details.
-                      </div>
+                  <div className="row g-3">
+                    <div className="col-12">
+                      <label className="form-label text-white-50">Full Name</label>
+                      <input
+                        className="form-control form-control-dark"
+                        placeholder="Your name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        autoComplete="name"
+                      />
                     </div>
-                  </form>
+
+                    <div className="col-12">
+                      <label className="form-label text-white-50">Email</label>
+                      <input
+                        type="email"
+                        className="form-control form-control-dark"
+                        placeholder="you@email.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        autoComplete="email"
+                      />
+                    </div>
+
+                    <div className="col-md-6">
+                      <label className="form-label text-white-50">Login</label>
+                      <input
+                        className="form-control form-control-dark"
+                        placeholder="choose_login"
+                        value={newLogin}
+                        onChange={(e) => setNewLogin(e.target.value)}
+                        autoComplete="username"
+                      />
+                    </div>
+
+                    <div className="col-md-6">
+                      <label className="form-label text-white-50">Password</label>
+                      <input
+                        type="password"
+                        className="form-control form-control-dark"
+                        placeholder="choose password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        autoComplete="new-password"
+                      />
+                    </div>
+
+                    <div className="small text-white-50">
+                      Password strength: <span className="text-white">{passwordStrength}</span>
+                    </div>
+
+                    <div className="col-12 d-flex gap-2 flex-wrap mt-2">
+                      <button className="btn btn-brand px-4" type="submit" disabled={loading}>
+                        {loading ? "Creating..." : "Create Account"}
+                      </button>
+
+                      <button
+                        className="btn btn-outline-light px-4"
+                        type="button"
+                        onClick={() => setMode("signin")}
+                      >
+                        Back to Sign In
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              )}
+
+              {status && (
+                <div className="mt-3 small text-white-50" aria-live="polite">
+                  {status}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="col-lg-5">
+            <div className="card-glass p-4 h-100">
+              <h2 className="h4 mb-3">Why sign in?</h2>
+
+              <div className="mb-3">
+                <div className="fw-semibold">Personal saved logs</div>
+                <div className="small text-white-50">
+                  Your image analyses and questions are saved under your account.
                 </div>
               </div>
-            )}
-          </div>
-        </>
-      );
-    }
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<SignInPage />);
-  </script>
+              <div className="mb-3">
+                <div className="fw-semibold">Consistent assistant history</div>
+                <div className="small text-white-50">
+                  The logs page can show your own previous interactions instead of everyone’s records.
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <div className="fw-semibold">Clearer testing</div>
+                <div className="small text-white-50">
+                  Different users can test the assistant while keeping their results separate.
+                </div>
+              </div>
+
+              <a className="btn btn-outline-light w-100" href="dashboard.html">Continue as Guest</a>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById("root")).render(<SignInPage />);
+</script>
 
 </body>
 </html>
