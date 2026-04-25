@@ -3,197 +3,539 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard - VisionForge AI</title>
+  <title>Vision Companion - VisionForge AI</title>
 
-	<!-- FAVICON -->
+  <!-- FAVICON -->
   <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
   <link rel="shortcut icon" type="image/x-icon" href="Images/favicon.ico">
-	
+
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Your CSS -->
+  <!-- Existing project CSS -->
   <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    body {
+      background: #eef5fb;
+      color: #102033;
+    }
+
+    .vf-app-shell {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #edf6ff 0%, #dcecf8 50%, #f8fbff 100%);
+    }
+
+    .vf-topbar {
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom: 1px solid rgba(30, 70, 110, 0.12);
+      backdrop-filter: blur(12px);
+    }
+
+    .vf-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: #102033;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    .vf-brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+    }
+
+    .vf-nav-link {
+      color: #28445f;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-bottom: 4px solid transparent;
+    }
+
+    .vf-nav-link.active {
+      color: #102033;
+      border-bottom-color: #416f97;
+    }
+
+    .vf-sidebar {
+      background: rgba(255, 255, 255, 0.62);
+      border-right: 1px solid rgba(30, 70, 110, 0.12);
+      min-height: calc(100vh - 67px);
+      padding: 24px 18px;
+    }
+
+    .vf-sidebar-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #102033;
+    }
+
+    .vf-feed-item {
+      display: flex;
+      gap: 12px;
+      color: #263f56;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+      line-height: 1.35;
+    }
+
+    .vf-feed-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 999px;
+      background: #b8cfe2;
+      margin-top: 4px;
+      flex: 0 0 auto;
+    }
+
+    .vf-main {
+      padding: 44px 42px;
+    }
+
+    .vf-title {
+      font-size: clamp(2.8rem, 6vw, 5.3rem);
+      line-height: 0.98;
+      font-weight: 900;
+      color: #050a12;
+      letter-spacing: -0.06em;
+      margin-bottom: 34px;
+    }
+
+    .vf-action-card {
+      max-width: 920px;
+    }
+
+    .vf-big-button {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      background: #416f97;
+      color: #ffffff;
+      font-size: clamp(1.4rem, 3vw, 2.5rem);
+      font-weight: 800;
+      padding: 22px 24px;
+      box-shadow: 0 14px 35px rgba(24, 60, 94, 0.22);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .vf-big-button:hover {
+      background: #365f83;
+      transform: translateY(-1px);
+    }
+
+    .vf-card {
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(38, 75, 110, 0.18);
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(45, 80, 115, 0.12);
+    }
+
+    .vf-result-box {
+      min-height: 250px;
+      width: 100%;
+      border: 1px solid rgba(48, 85, 120, 0.25);
+      border-radius: 12px;
+      background: #ffffff;
+      color: #111827;
+      padding: 24px;
+      font-size: clamp(1.15rem, 2vw, 1.75rem);
+      line-height: 1.45;
+      resize: vertical;
+    }
+
+    .vf-control-label {
+      font-weight: 800;
+      color: #102033;
+      margin-bottom: 8px;
+    }
+
+    .vf-small-help {
+      color: #57738d;
+      font-size: 0.95rem;
+    }
+
+    .vf-secondary-button {
+      border: 0;
+      border-radius: 12px;
+      background: #416f97;
+      color: white;
+      font-weight: 800;
+      padding: 14px 22px;
+      box-shadow: 0 10px 28px rgba(24, 60, 94, 0.2);
+    }
+
+    .vf-secondary-button:hover {
+      background: #365f83;
+      color: white;
+    }
+
+    .vf-outline-button {
+      border: 2px solid #416f97;
+      border-radius: 12px;
+      background: transparent;
+      color: #294d70;
+      font-weight: 800;
+      padding: 12px 20px;
+    }
+
+    .vf-outline-button:hover {
+      background: #416f97;
+      color: white;
+    }
+
+    .vf-wave {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 120px;
+    }
+
+    .vf-wave span {
+      width: 8px;
+      border-radius: 999px;
+      background: #416f97;
+      display: inline-block;
+      opacity: 0.8;
+    }
+
+    .vf-wave span:nth-child(1) { height: 18px; }
+    .vf-wave span:nth-child(2) { height: 34px; }
+    .vf-wave span:nth-child(3) { height: 58px; }
+    .vf-wave span:nth-child(4) { height: 82px; }
+    .vf-wave span:nth-child(5) { height: 54px; }
+    .vf-wave span:nth-child(6) { height: 36px; }
+    .vf-wave span:nth-child(7) { height: 20px; }
+
+    .vf-status {
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-weight: 700;
+      background: rgba(65, 111, 151, 0.12);
+      color: #24435e;
+    }
+
+    .vf-preview-img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(48, 85, 120, 0.2);
+    }
+
+    .vf-hidden-input {
+      display: none;
+    }
+
+    @media (max-width: 991px) {
+      .vf-sidebar {
+        display: none;
+      }
+
+      .vf-main {
+        padding: 28px 18px;
+      }
+
+      .vf-title {
+        margin-bottom: 24px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div id="root"></div>
 
-  <!-- NAV -->
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container container-narrow py-2">
-      <a class="navbar-brand" href="index.html">
-        <span class="brand-mark">
-          <img src="Images/favicon.ico" alt="AI">
-        </span>
-        VisionForge AI
-      </a>
-
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navMain"
-        aria-controls="navMain"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-
-          <!-- Keep Sign In button for navigation -->
-          <li class="nav-item"><a class="btn btn-sm btn-brand ms-lg-2" href="signin.html">Sign In</a></li>
-
-          <!-- Dashboard shown as active (even if user opens it directly) -->
-          <li class="nav-item ms-lg-2">
-            <a class="nav-link active" aria-current="page" href="dashboard.html">Dashboard</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- MAIN -->
-  <main class="section pt-4">
-    <div class="container container-narrow">
-
-      <!-- Header Card -->
-      <div class="hero-card mb-4">
-        <div class="hero-inner">
-          <div class="row align-items-center g-4">
-            <div class="col-lg-8">
-              <h1 class="mb-2">Dashboard (Demo)</h1>
-              <p class="mb-0 text-white-50">
-                This page is protected by a client-side session check. If you’re not signed in,
-                you’re redirected to the Sign In page.
-              </p>
-            </div>
-            <div class="col-lg-4">
-              <div class="preview preview-fixed">
-                <img src="Images/dashboard.jpg" alt="Dashboard preview" loading="lazy" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Content -->
-      <div class="row g-4">
-
-        <!-- Welcome / Session -->
-        <div class="col-lg-7">
-          <div class="card-glass h-100">
-            <div class="d-flex justify-content-between align-items-start gap-3">
-              <div>
-                <h2 class="h4 mb-1">Welcome</h2>
-                <div class="small text-white-50">
-                  Signed in as: <span class="text-white" id="userLogin">—</span>
-                </div>
-              </div>
-
-              <button class="btn btn-outline-light btn-sm" type="button" id="logoutBtn">
-                Logout
-              </button>
-            </div>
-
-            <div class="mt-3 small text-white-50">
-              Demo note: This is a static site. “Auth” is simulated using <span class="text-white">localStorage</span>.
-              No server/database is involved, and passwords are not secured — it’s only for Project 1 demonstration.
-            </div>
-
-            <div class="mt-4 d-flex gap-2 flex-wrap">
-              <a class="btn btn-brand px-4" href="index.html">Back to Home</a>
-              <button class="btn btn-outline-light px-4" type="button" onclick="copyEmail()">Copy Support Email</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Minimal “Activity” -->
-        <div class="col-lg-5">
-          <div class="card-glass h-100">
-            <h2 class="h4 mb-3">Quick Activity</h2>
-
-            <div class="card-glass mb-3">
-              <div class="fw-semibold">✓ Signed in</div>
-              <div class="small text-white-50">Session stored in localStorage (demo)</div>
-            </div>
-
-            <div class="card-glass mb-3">
-              <div class="fw-semibold">✓ Protected route</div>
-              <div class="small text-white-50">Redirects to Sign In if session missing</div>
-            </div>
-
-            <div class="card-glass">
-              <div class="fw-semibold">Next (Project 2)</div>
-              <div class="small text-white-50">Connect photos → analyze → store results → show insights</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container container-narrow d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <div>© <span id="year"></span> VisionForge AI</div>
-      <div class="small text-white-50">Protected demo page • localStorage session</div>
-    </div>
-  </footer>
-
-  <div id="toast"></div>
-
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Shared JS (toast + copyEmail etc.) -->
-  <script src="js/scripts.js"></script>
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <script>
-    // Footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
+  <script type="text/babel">
+    const { useRef, useState } = React;
 
-    // Demo session check (client-side protection)
-    const SESSION_KEY = "vf_session_v1";
+    function VisionCompanionApp() {
+      const fileInputRef = useRef(null);
 
-    function readSession() {
-      try {
-        const raw = localStorage.getItem(SESSION_KEY);
-        return raw ? JSON.parse(raw) : null;
-      } catch {
-        return null;
+      const [selectedImage, setSelectedImage] = useState(null);
+      const [imagePreview, setImagePreview] = useState("");
+      const [voiceQuestion, setVoiceQuestion] = useState("");
+      const [resultText, setResultText] = useState(
+        "Upload an image or ask a voice question. The assistant will provide a clear accessibility-focused description here."
+      );
+      const [status, setStatus] = useState("Ready");
+      const [isListening, setIsListening] = useState(false);
+
+      const recentActivity = [
+        "A clear path is visible with no immediate obstacle.",
+        "Detected possible chair near the walking path.",
+        "Voice question received: describe the scene."
+      ];
+
+      function handleImageSelect(event) {
+        const file = event.target.files?.[0];
+
+        if (!file) {
+          return;
+        }
+
+        setSelectedImage(file);
+        setImagePreview(URL.createObjectURL(file));
+        setStatus("Image selected. You can now ask a question or analyze the scene.");
       }
+
+      function openImagePicker() {
+        fileInputRef.current?.click();
+      }
+
+      function startVoiceInput() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+          setStatus("Voice recognition is not supported in this browser. Please type your question instead.");
+          return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        setIsListening(true);
+        setStatus("Listening... ask something like: What is in front of me?");
+
+        recognition.start();
+
+        recognition.onresult = function(event) {
+          const transcript = event.results[0][0].transcript;
+          setVoiceQuestion(transcript);
+          setStatus("Voice question captured.");
+        };
+
+        recognition.onerror = function() {
+          setStatus("Could not capture voice. Try again or type your question.");
+        };
+
+        recognition.onend = function() {
+          setIsListening(false);
+        };
+      }
+
+      function analyzeScene() {
+        if (!selectedImage && !voiceQuestion.trim()) {
+          setStatus("Please upload an image or ask a question first.");
+          return;
+        }
+
+        setStatus("Analyzing scene...");
+
+        /*
+          This is a temporary frontend-only response.
+          In the next step, we will connect this button to the Express backend.
+          Backend route will call Gemini API and store the result in Firestore.
+        */
+        const demoResponse =
+          "Safety summary: The scene appears mostly clear. Move forward carefully. Important details: check for objects near your walking path, especially chairs, tables, doors, stairs, people, vehicles, or uneven surfaces. Navigation guidance: proceed slowly and listen for the audio description before moving.";
+
+        setResultText(demoResponse);
+        speakText(demoResponse);
+        setStatus("Analysis complete. Audio description is playing.");
+      }
+
+      function speakText(text) {
+        if (!window.speechSynthesis) {
+          setStatus("Text-to-speech is not supported in this browser.");
+          return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";
+        utterance.rate = 0.92;
+        utterance.pitch = 1;
+
+        window.speechSynthesis.speak(utterance);
+      }
+
+      function stopSpeech() {
+        window.speechSynthesis?.cancel();
+        setStatus("Audio stopped.");
+      }
+
+      function clearAll() {
+        setSelectedImage(null);
+        setImagePreview("");
+        setVoiceQuestion("");
+        setResultText("Upload an image or ask a voice question. The assistant will provide a clear accessibility-focused description here.");
+        setStatus("Ready");
+        window.speechSynthesis?.cancel();
+
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+      }
+
+      return (
+        <div className="vf-app-shell">
+          <header className="vf-topbar sticky-top">
+            <div className="container-fluid">
+              <div className="row align-items-center">
+                <div className="col-lg-2 col-12 px-4 py-3">
+                  <a className="vf-brand" href="index.html">
+                    <img src="Images/favicon.ico" alt="VisionForge logo" />
+                    <span>VisionForge AI</span>
+                  </a>
+                </div>
+
+                <nav className="col-lg-10 col-12 d-flex gap-2 px-4">
+                  <a className="vf-nav-link active" href="dashboard.html">Main Dashboard</a>
+                  <a className="vf-nav-link" href="logs.html">View Logs</a>
+                  <a className="vf-nav-link" href="index.html">Home</a>
+                </nav>
+              </div>
+            </div>
+          </header>
+
+          <div className="container-fluid">
+            <div className="row">
+              <aside className="col-lg-2 vf-sidebar">
+                <div className="vf-sidebar-title">Activity Feed</div>
+
+                {recentActivity.map((item, index) => (
+                  <div className="vf-feed-item" key={index}>
+                    <span className="vf-feed-dot"></span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+
+                <hr />
+
+                <div className="vf-sidebar-title mt-4">Accessibility Focus</div>
+
+                <div className="vf-feed-item">
+                  <span className="vf-feed-dot"></span>
+                  <span>Safety-first image explanations</span>
+                </div>
+
+                <div className="vf-feed-item">
+                  <span className="vf-feed-dot"></span>
+                  <span>Voice input and spoken output</span>
+                </div>
+              </aside>
+
+              <main className="col-lg-10 vf-main">
+                <h1 className="vf-title">
+                  Vision Companion - Your Navigator
+                </h1>
+
+                <div className="vf-action-card">
+                  <input
+                    ref={fileInputRef}
+                    className="vf-hidden-input"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageSelect}
+                  />
+
+                  <button className="vf-big-button mb-4" type="button" onClick={openImagePicker}>
+                    🎙️ Upload Image or Ask 📷
+                  </button>
+
+                  <div className="row g-4 align-items-stretch">
+                    <div className="col-xl-7">
+                      <div className="vf-card p-4 h-100">
+                        <div className="mb-3">
+                          <div className="vf-control-label">Voice question</div>
+                          <input
+                            className="form-control form-control-lg"
+                            value={voiceQuestion}
+                            onChange={(e) => setVoiceQuestion(e.target.value)}
+                            placeholder="Example: What is in front of me?"
+                          />
+                          <div className="vf-small-help mt-2">
+                            You can type or use the microphone button.
+                          </div>
+                        </div>
+
+                        <div className="d-flex gap-2 flex-wrap mb-4">
+                          <button className="vf-secondary-button" type="button" onClick={startVoiceInput}>
+                            {isListening ? "Listening..." : "🎤 Record Voice Question"}
+                          </button>
+
+                          <button className="vf-outline-button" type="button" onClick={analyzeScene}>
+                            Analyze Scene
+                          </button>
+
+                          <button className="vf-outline-button" type="button" onClick={clearAll}>
+                            Clear
+                          </button>
+                        </div>
+
+                        {imagePreview && (
+                          <div className="mb-4">
+                            <div className="vf-control-label">Selected image preview</div>
+                            <img className="vf-preview-img" src={imagePreview} alt="Selected upload preview" />
+                          </div>
+                        )}
+
+                        <div className="vf-control-label">Accessibility description</div>
+                        <textarea
+                          className="vf-result-box"
+                          value={resultText}
+                          onChange={(e) => setResultText(e.target.value)}
+                          aria-label="Accessibility description result"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <div className="col-xl-5">
+                      <div className="vf-card p-4 h-100 d-flex flex-column justify-content-center">
+                        <div className="vf-wave mb-4" aria-hidden="true">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+
+                        <button className="vf-secondary-button mb-3" type="button" onClick={() => speakText(resultText)}>
+                          ▶ Play Audio Description
+                        </button>
+
+                        <button className="vf-outline-button mb-4" type="button" onClick={stopSpeech}>
+                          Stop Audio
+                        </button>
+
+                        <div className="vf-status">
+                          Status: {status}
+                        </div>
+
+                        <div className="vf-small-help mt-3">
+                          This dashboard is designed for simple interaction: upload an image, ask a question, and receive a spoken accessibility-focused explanation.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </main>
+            </div>
+          </div>
+        </div>
+      );
     }
 
-    function clearSession() {
-      localStorage.removeItem(SESSION_KEY);
-    }
-
-    const session = readSession();
-
-    // If not signed in, redirect to Sign In
-    if (!session || !session.login) {
-      // Optional toast (may not show if redirect is fast, but fine)
-      window.vfToast?.("Please sign in to access the dashboard.");
-      window.location.href = "signin.html";
-    } else {
-      document.getElementById("userLogin").textContent = session.login;
-    }
-
-    // Logout
-    document.getElementById("logoutBtn")?.addEventListener("click", () => {
-      clearSession();
-      window.vfToast?.("Signed out (demo).");
-      window.location.href = "signin.html";
-    });
+    ReactDOM.createRoot(document.getElementById("root")).render(<VisionCompanionApp />);
   </script>
-
 </body>
 </html>
